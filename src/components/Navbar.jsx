@@ -23,7 +23,7 @@ const handleLogOut=()=>{
 
 }
   return (
-    <nav className="bg-black w-full h-16 px-6 fixed top-0 shadow-lg z-50 flex items-center justify-between">
+    <nav className="bg-black w-full h-16 relative px-6 fixed top-0 shadow-lg z-50 flex items-center justify-between">
       {/* Logo */}
       <div className="text-orange-400 hover:bg-gray-700 bg-gray-800 cursor-pointer px-4 py-2 rounded-lg font-bold text-2xl">
         CiNemO
