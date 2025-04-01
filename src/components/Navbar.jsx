@@ -1,11 +1,27 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import {  signOut } from "firebase/auth";
+import { auth } from '../utils/firebase';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate=useNavigate();
+  const user=useSelector((store)=>store.user);
+const handleLogOut=()=>{
 
+  signOut(auth).then(() => {
+    // Sign-out successful.
+    navigate("/");
+  }).catch((error) => {
+    // An error happened.
+  });
+  
+ 
+
+}
   return (
     <nav className="bg-black w-full h-16 px-6 fixed top-0 shadow-lg z-50 flex items-center justify-between">
       {/* Logo */}
@@ -15,7 +31,7 @@ const Navbar = () => {
       
       {/* Desktop Menu */}
       <div className="hidden md:flex text-white gap-16">
-        <Link to="/" className="hover:text-orange-400 transition">Home</Link>
+        <Link to="/body" className="hover:text-orange-400 transition">Home</Link>
         <Link to="/about" className="hover:text-orange-400 transition">About</Link>
         <Link to="/contact" className="hover:text-orange-400 transition">Contact</Link>
       </div>
@@ -52,12 +68,12 @@ const Navbar = () => {
             >
               <ul className="py-2 items-center justify-center ">
                 <li className="px-4 py-2   my-4 text-white hover:bg-white hover:text-black rounded-lg cursor-pointer">Profile</li>
-                <li className="px-4 py-2 text-white hover:bg-white hover:text-black rounded-lg cursor-pointer">Logout</li>
+                <li className="px-4 py-2 text-white hover:bg-white hover:text-black rounded-lg cursor-pointer" onClick={handleLogOut}>Logout</li>
               </ul>
             </div>
           )}
         </div>
-        <p className="ml-4 text-white hidden md:block">Welcome Sakil</p>
+        <p className="ml-4 text-white hidden md:block">Welcome {user.displayName}</p>
       </div>
     </nav>
   );

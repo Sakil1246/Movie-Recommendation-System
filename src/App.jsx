@@ -7,25 +7,36 @@ import { Provider, useDispatch } from 'react-redux'
 import appStore from './utils/Store'
 import { auth } from './utils/firebase'
 import {  onAuthStateChanged } from "firebase/auth";
-import { addUser } from './utils/userSlice'
+import { addUser, removeUser } from './utils/userSlice'
 const App = () => {
   const dispatch=useDispatch();
   useEffect(()=>{
-    onAuthStateChanged(auth, (user) => {
+   const unsubscribe= onAuthStateChanged(auth, (user) => {
       if (user) {
-        const {uid,email,displayName} = user;
-        dispatch(addUser(uid,email,displayName));
+        // User is signed in
+        const {uid,email,displayName,photoUrl} = user;
+        //console.log(uid, email, displayName);
+        dispatch(addUser({
+          uid:uid,
+          email:email,
+          displayName:displayName,
+        photoUrl:photoUrl,}
+        ));
       } else {
         // User is signed out
         // ...
+        dispatch(removeUser())
+
       }
     });
+    return ()=>unsubscribe();
   },[]);
   
   
   return (
     <div>
       {/* <Provider store={appStore}> */}
+      <Provider store={appStore}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<SignIn_out />} />
@@ -34,6 +45,7 @@ const App = () => {
           </Routes>
 
         </BrowserRouter>
+        </Provider>
       {/* </Provider> */}
     </div>
   )
