@@ -5,6 +5,6 @@ export const options = {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: import.meta.env.TOKEN,
+      Authorization: import.meta.env.VITE_TOKEN,
     }
   };
