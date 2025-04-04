@@ -1,26 +1,33 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import userReducer  from "./userSlice";
-import movieReducer from "./moviesSlice";
-import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
+import userReducer from './userSlice';
+import movieReducer from './moviesSlice';
 
-const configPersit={
-    key:"root",
-    storage
+const persistConfig = {
+  key: 'root',
+  storage,
+  stateReconciler: autoMergeLevel2,
 };
-const reducers=combineReducers({
-    user:userReducer,
-    movies:movieReducer
 
-})
-const persistedReducer=persistReducer(configPersit,reducers);
-const appStore=configureStore(
-    {
-        reducer:persistedReducer,
+const rootReducer = combineReducers({
+  user: userReducer,
+  movies: movieReducer,
+});
 
-    }
-)
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const persistor=persistStore(appStore);
-export default appStore;
+const AppStore = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
+
+export const persistor = persistStore(AppStore);
+export default AppStore;

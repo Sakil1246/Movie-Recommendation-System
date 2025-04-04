@@ -69,7 +69,7 @@ const SignIn_out = () => {
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                console.log(user);
+                //console.log(user);
                 // ...
                 //dispatch(addUser(user));
                  navigate("/body");
