@@ -3,17 +3,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import {  signOut } from "firebase/auth";
 import { auth } from '../utils/firebase';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeUser } from '../utils/userSlice';
 
 const Navbar = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate=useNavigate();
+  const dispatch=useDispatch();
   const user=useSelector((store)=>store.user);
 const handleLogOut=()=>{
 
   signOut(auth).then(() => {
     // Sign-out successful.
+    dispatch(removeUser());
     navigate("/");
   }).catch((error) => {
     // An error happened.
