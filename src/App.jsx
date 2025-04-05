@@ -6,54 +6,48 @@ import Body from './components/Body'
 import { Provider, useDispatch, useSelector } from 'react-redux'
 import appStore, { persistor } from './utils/Store'
 import { auth } from './utils/firebase'
-import {  onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { addUser, removeUser } from './utils/userSlice'
 import { removeNowPlaying, removeTrailer } from './utils/moviesSlice'
-import { PersistGate } from 'redux-persist/lib/integration/react'
 const App = () => {
-  const dispatch=useDispatch();
-  const user=useSelector((store)=>store.user);
-  useEffect(()=>{
-   const unsubscribe= onAuthStateChanged(auth, () => {
-      if (user) {
+  const dispatch = useDispatch();
+  const user = useSelector((store) => store.user);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
         // User is signed in
-        const {uid,email,displayName,photoUrl} = user;
+        const { uid, email, displayName, photoUrl } = firebaseUser;
         //console.log(uid, email, displayName);
         dispatch(addUser({
-          uid:uid,
-          email:email,
-          displayName:displayName,
-        photoUrl:photoUrl,}
+          uid: uid,
+          email: email,
+          displayName: displayName,
+          photoUrl: photoUrl,
+        }
         ));
       } else {
         // User is signed out
-        
+
         dispatch(removeUser());
         dispatch(removeNowPlaying());
         dispatch(removeTrailer());
+        persistor.purge();
 
       }
     });
-    return ()=>unsubscribe();
-  },[]);
-  
-  
+    return () => unsubscribe();
+  }, []);
+
+
   return (
     <div>
-      {/* <Provider store={appStore}> */}
-      <Provider store={appStore}>
-        {/* <PersistGate Loading={null} persistor={persistor}> */}
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<SignIn_out />} />
             {<Route path="/body" element={<Body />} />}
-
           </Routes>
-
         </BrowserRouter>
-        {/* </PersistGate> */}
-        </Provider>
-      {/* </Provider> */}
+
     </div>
   )
 }

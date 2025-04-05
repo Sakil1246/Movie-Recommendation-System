@@ -26,7 +26,7 @@ const handleLogOut=()=>{
 
 }
   return (
-    <nav className="bg-black w-full h-16 relative px-6 fixed top-0 shadow-lg z-50 flex items-center justify-between">
+    <nav className="bg-black w-full h-16  px-6 fixed top-0 shadow-lg z-50 flex items-center justify-between">
       {/* Logo */}
       <div className="text-orange-400 hover:bg-gray-700 bg-gray-800 cursor-pointer px-4 py-2 rounded-lg font-bold text-2xl">
         CiNemO
@@ -76,7 +76,7 @@ const handleLogOut=()=>{
             </div>
           )}
         </div>
-        <p className="ml-4 text-white hidden md:block">Welcome {user.displayName}</p>
+        {user &&<p className="ml-4 text-white hidden md:block">Welcome {user.displayName}</p>}
       </div>
     </nav>
   );

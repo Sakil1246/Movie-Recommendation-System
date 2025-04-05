@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useTrailerNowPlaying from '../hooks/useTrailerNowPlaying';
 import { useSelector } from 'react-redux';
 
 const BgVideo = ({ id }) => {
+  //console.log(id);
   useTrailerNowPlaying({ id });
 
-  const video = useSelector((store) => store.movies?.trailer);
-  //console.log(video);
-  const video_key = video[0]?.key;
-  //console.log(video_key);
+  const video = useSelector((store) => store.movies?.trailer?.[id]);
+  const video_key = video?.[0]?.key;
 
-  if (!video_key) return null; // Or add a loading spinner / fallback
 
+  if (!video_key) return null;
   return (
     <div className='w-screen'>
       <iframe
