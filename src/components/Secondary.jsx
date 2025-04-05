@@ -5,6 +5,12 @@ const Secondary = () => {
   return (
     <div>
       <NowPlaying />
+      <NowPlaying />
+      <NowPlaying />
+      <NowPlaying />
+
+      <NowPlaying />
+
     </div>
   )
 }
