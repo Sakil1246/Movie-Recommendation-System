@@ -19,7 +19,8 @@ const handleLogOut=()=>{
     dispatch(removeUser());
     navigate("/");
   }).catch((error) => {
-    // An error happened.
+    
+    console.error("Error signing out: ", error);
   });
   
  
@@ -27,24 +28,24 @@ const handleLogOut=()=>{
 }
   return (
     <nav className="bg-black w-full h-16  px-6 fixed top-0 shadow-lg z-50 flex items-center justify-between">
-      {/* Logo */}
+     
       <div className="text-orange-400 hover:bg-gray-700 bg-gray-800 cursor-pointer px-4 py-2 rounded-lg font-bold text-2xl">
         CiNemO
       </div>
       
-      {/* Desktop Menu */}
+      
       <div className="hidden md:flex text-white gap-16">
         <Link to="/body" className="hover:text-orange-400 transition">Home</Link>
         <Link to="/about" className="hover:text-orange-400 transition">About</Link>
         <Link to="/contact" className="hover:text-orange-400 transition">Contact</Link>
       </div>
       
-      {/* Mobile Menu Toggle */}
+      
       <button className="md:hidden text-white" onClick={() => setMenuOpen(!menuOpen)}>
         {menuOpen ? <X size={28} /> : <Menu size={28} />}
       </button>
       
-      {/* Mobile Menu */}
+      
       {menuOpen && (
         <div className="absolute top-16 left-0 w-full bg-black p-4 flex flex-col items-center text-white md:hidden">
           <Link to="/" className="py-2 w-full text-center hover:bg-gray-700" onClick={() => setMenuOpen(false)}>Home</Link>
@@ -53,7 +54,7 @@ const handleLogOut=()=>{
         </div>
       )}
       
-      {/* Profile Section */}
+      
       <div className="relative flex items-center px-4 py-2 rounded-lg">
         <div className="relative" onMouseEnter={() => setIsVisible(true)} onMouseLeave={() => setIsVisible(false)}>
           <div className='hover:border-white border-4 border-transparent rounded-full p-1'>

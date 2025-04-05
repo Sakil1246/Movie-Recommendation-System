@@ -8,3 +8,5 @@ export const options = {
       Authorization: import.meta.env.VITE_TOKEN,
     }
   };
+
+export const IMG_URL="https://image.tmdb.org/t/p/w300/"
