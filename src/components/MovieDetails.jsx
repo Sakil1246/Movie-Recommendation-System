@@ -1,33 +1,59 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import useTrailerNowPlaying from '../hooks/useTrailerNowPlaying';
-import { useSelector } from 'react-redux';
+import useTrailerNowPlaying from '../hooks/useTrailerNowPlaying'
+import { useSelector } from 'react-redux'
+import { IMG_URL } from '../utils/constants'
 
 const MovieDetails = () => {
-    const location=useLocation();
-    const {details}=location.state;
-    console.log(details);
-    useTrailerNowPlaying({id:details.id});
-    const trailer=useSelector((store)=>store.movies?.trailer?.[details.id]);
-    //console.log(trailer);
-    const tariler1=trailer?.[0]?.key;
-    const tariler2=trailer?.[1]?.key;
-    const tariler3=trailer?.[2]?.key;
-    const tariler4=trailer?.[3]?.key;
+  const [showTrailer, setShowTrailer] = useState(false)
+  const location = useLocation()
+  const { details } = location.state
+
+  useTrailerNowPlaying({ id: details.id })
+
+  const trailer = useSelector((store) => store.movies?.trailer?.[details.id])
+  const trailerKey1 = trailer?.[0]?.key
+
+  const handleWatchTrailer = () => {
+    setShowTrailer(true)
+  }
 
   return (
-    <div className=' bg-black h-auto'>
-        <h1 className='text-5xl font-bold  text-white py-5'>{details.original_title}</h1>
-      <iframe
-        className='h-auto w-2/4 ml-80 aspect-video '
-        src={`https://www.youtube.com/embed/${tariler1}?rel=0&modestbranding=1`}
-        title="YouTube video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerPolicy="strict-origin-when-cross-origin"
-        allowFullScreen
-      ></iframe>
-      <h1 className='text-black font-bold text-4xl mt-5 py-4 bg-slate-300'>Overview</h1>
-      <div className='text-white text-2xl '>{details.overview}</div>
+    <div className='bg-black min-h-screen px-4 py-8'>
+      {showTrailer && trailerKey1 ? (
+        <iframe
+          className='w-2/3 aspect-video mx-auto rounded-xl'
+          src={`https://www.youtube.com/embed/${trailerKey1}?rel=0&modestbranding=1&autoplay=1`}
+          title="YouTube video player"
+
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        ></iframe>
+      ) : (
+        <img
+          alt='Movie card'
+          className='w-1/3 h-auto mx-auto aspect-auto object-cover rounded-md'
+          src={IMG_URL + details.poster_path}
+        />
+      )}
+      <h1 className='text-5xl font-bold text-white mb-5 py-5'>
+        {details.original_title}
+      </h1>
+      {!showTrailer && trailerKey1 && (
+        <button
+          onClick={handleWatchTrailer}
+          className='bg-white text-black font-bold text-2xl py-4 w-full rounded-3xl hover:bg-slate-200 transition-all duration-300'
+        >
+          ▶️ Watch Trailer
+        </button>
+      )}
+      {/* <h1 className='text-black font-bold text-4xl mt-10 py-4 bg-slate-300 text-center'>
+        Overview
+      </h1> */}
+      <div className='text-slate-300 text-2xl w-full mx-0 mt-6'>
+        {details.overview}
+      </div>
     </div>
   )
 }
