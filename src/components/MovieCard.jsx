@@ -7,7 +7,7 @@ const MovieCard = ({path}) => {
 
   return (
     <div className=' '>
-      <img alt='Movie card' className='w-48 h-48'
+      <img alt='Movie card' className='w-48 h-72 object-cover rounded-md'
       src={IMG_URL+path}
       />
     </div>

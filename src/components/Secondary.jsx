@@ -4,7 +4,7 @@ import MovieList from './MovieList';
 
 const Secondary = () => {
 
-  const nowPlaying =useSelector((store) => store.movies?.nowPlaying);
+  const nowPlaying = useSelector((store) => store.movies?.nowPlaying);
   const popular = useSelector((store) => store.movies?.popular);
   const topRated = useSelector((store) => store.movies?.topRated);
   const upcoming = useSelector((store) => store.movies?.upComing);
@@ -16,6 +16,7 @@ const Secondary = () => {
         <MovieList list={popular} tittle={"Popular"} />
         <MovieList list={topRated} tittle={"Top Rated"} />
         <MovieList list={upcoming} tittle={"Upcoming"} />
+
       </div>
     </div>
   )

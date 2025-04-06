@@ -25,10 +25,11 @@ const Primary = () => {
       slidesPerview={1}
       autoplay={{delay: 20000}}
       modules={[Autoplay]}
+      className='max-w-full'
       loop={true}>
         {data?.map((movie)=>(
           <SwiperSlide key={movie.id}>
-            <div className="pt-[30%] bg-black h-30 md:pt-0">
+            <div className="max-w-full overflow-hidden pt-[30%] bg-black h-30 md:pt-0">
               <TitleNowPlaying title={movie.original_title} overview={movie.overview}/>
               <BgVideo id={movie.id}/>
             </div>

@@ -20,9 +20,9 @@ const Body = () => {
       <Navbar/>
 
       <Primary/>
-      <div className='absolute'>
+      
       <Secondary/>
-      </div>
+      
       
     </div>
   )
