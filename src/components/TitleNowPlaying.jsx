@@ -6,8 +6,8 @@ const TitleNowPlaying = ({title,overview}) => {
       <h1 className='text-5xl mt-40 font-bold w-20 pb-3 ml-10'>{title}</h1>
       <p className='text-2xl w-1/4 ml-10 line-clamp-3' >{overview}</p>
       <div className='mt-3'>
-        <button className='bg-slate-500 ml-10 hover:bg-slate-400 text-white font-bold py-2 px-4 rounded-md'>▶️Play Now</button>
-        <button className='bg-slate-500 mx-3 hover:bg-slate-400 text-white font-bold py-2 px-4 rounded-md'>ℹ️More Info</button>
+        <button className='bg-white text-black ml-10 hover:bg-slate-200  font-bold py-2 px-4 rounded-md'>▶️Play Now</button>
+        <button className='bg-slate-300 mx-3 hover:bg-slate-400 text-black font-bold py-2 px-4 rounded-md'>ℹ️More Info</button>
       </div>
     </div>
   )

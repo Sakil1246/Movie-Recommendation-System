@@ -13,7 +13,7 @@ import { Autoplay } from 'swiper/modules';
 
 const Primary = () => {
   
-    useNowplaying();
+    
   
   
     const data=useSelector((store)=>store.movies?.nowPlaying);
