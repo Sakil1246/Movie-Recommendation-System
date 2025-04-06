@@ -10,7 +10,7 @@ const MovieList = ({ list, tittle }) => {
         <div className="flex space-x-4">
           {list?.map((movie) => (
             <div key={movie.id} className="flex-shrink-0 w-48">
-              <MovieCard path={movie.poster_path} />
+              <MovieCard path={movie.poster_path} details={movie}/>
             </div>
           ))}
         </div>

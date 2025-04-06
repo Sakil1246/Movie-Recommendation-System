@@ -8,6 +8,7 @@ import { auth } from './utils/firebase'
 import { onAuthStateChanged } from "firebase/auth";
 import { addUser, removeUser } from './utils/userSlice'
 import { removeNowPlaying, removePopular, removeTopRated, removeTrailer, removeUpcoming } from './utils/moviesSlice'
+import MovieDetails from './components/MovieDetails'
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
@@ -46,10 +47,10 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<SignIn_out />} />
-            {<Route path="/body" element={<Body />} />}
+            <Route path="/body" element={<Body />} />
+            <Route path="/movieDetails" element={<MovieDetails />} />
           </Routes>
         </BrowserRouter>
-
     </div>
   )
 }

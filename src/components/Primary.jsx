@@ -22,7 +22,7 @@ const Primary = () => {
     <div>
       <Swiper 
       spcaebetween={50}
-      slidesPerview={1}
+      slidesPerView={1}
       autoplay={{delay: 20000}}
       modules={[Autoplay]}
       className='max-w-full'
