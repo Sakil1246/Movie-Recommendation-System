@@ -1,30 +1,24 @@
 import { useEffect, useState } from "react";
 import { options } from "../utils/constants";
 
-const useGetGenre = ({ genreId }) => {
-  const [genreNames, setGenreNames] = useState([]);
+const useGetGenre = () => {
+  const [genres, setGenres] = useState([]);
 
-  const getGenres = async () => {
-    const data = await fetch(`https://api.themoviedb.org/3/genre/movie/list?language=en`, options);
-    const json = await data.json();
-
-    const allGenres = json.genres; // full list of {id, name}
-    
-    // map ids to names
-    const matchedGenres = allGenres
-      .filter((g) => genreId.includes(g.id))
-      .map((g) => g.name);
-
-    setGenreNames(matchedGenres);
+  const getGenre = async () => {
+    try {
+      const data = await fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options);
+      const json = await data.json();
+      setGenres(json.genres); // ✅ Save to state
+    } catch (error) {
+      console.error("Failed to fetch genres:", error);
+    }
   };
 
   useEffect(() => {
-    if (genreId && genreId.length > 0) {
-      getGenres();
-    }
-  }, [genreId]);
+    getGenre();
+  }, []);
 
-  return genreNames; // returns array of genre names like ["Action", "Drama"]
+  return genres; // ✅ Return genres
 };
 
 export default useGetGenre;

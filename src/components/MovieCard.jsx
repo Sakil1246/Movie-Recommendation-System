@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { IMG_URL } from '../utils/constants';
 import { useNavigate } from 'react-router-dom';
-import useCast from '../hooks/useCast';
+import { genreMap } from '../utils/mockData';
+import { motion, AnimatePresence } from "framer-motion";
+
 
 const MovieCard = ({ path, details }) => {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
-
+  const genres = details?.genre_ids?.map((id) => genreMap[id]);
   const movieInfo = () => {
     navigate("/movieDetails", { state: { details } });
   };
@@ -14,7 +16,7 @@ const MovieCard = ({ path, details }) => {
 
   return (
     <div
-      className="relative w-48 h-72 group cursor-pointer"
+      className="relative w-fit h-fit group cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={movieInfo}
@@ -25,27 +27,50 @@ const MovieCard = ({ path, details }) => {
         src={IMG_URL + path}
       />
 
-      {isHovered && (
-        <div className="absolute top-0 my-auto left-0 z-50 w-96 bg-zinc-900 text-white p-4 rounded-md shadow-lg transition-all duration-300 scale-110">
-          <img
-            src={IMG_URL + path}
-            alt="Expanded movie"
-            className="w-full h-48 object-cover rounded-md mb-2"
-          />
-          <h2 className="text-lg font-semibold">{details?.title || details?.name}</h2>
+<AnimatePresence>
+  {isHovered && (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95, y: 10 }}
+      animate={{ opacity: 1, scale: 1.3, y: 0 }}
+      exit={{ opacity: 0, scale: 0.95, y: 10 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      className="absolute top-0 left-0 z-50 w-fit bg-transparent text-white p-0 rounded-md shadow-lg"
+    >
+      <div className="relative w-64">
+        <div
+          className="absolute inset-0 rounded-md blur-md brightness-50 z-0"
+          style={{
+            backgroundImage: `url(${IMG_URL + path})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <img
+          src={IMG_URL + path}
+          alt="Expanded movie"
+          className="relative z-10 w-full h-48 object-cover rounded-md mb-2"
+        />
+        <div className="relative z-10 p-4 bg-zinc-900 rounded-b-md">
+          <h2 className="text-lg font-semibold">
+            {details?.title || details?.original_title}
+          </h2>
           <div className="flex text-sm text-green-400 mt-1">
             {details?.vote_average ? `${Math.floor(details.vote_average * 10)}% Match` : ""}
-            <span className="ml-2 text-gray-400">{details?.release_date || details?.first_air_date}</span>
+            <span className="ml-2 text-gray-400">{details?.release_date}</span>
           </div>
-          <div className="text-sm text-gray-300 mt-2">
-            {details?.overview?.slice(0, 100)}...
+          <div className="flex text-sm text-slate-300 mt-1">
+            <h2> • {genres.join(" • ")}</h2>
           </div>
           <div className="flex space-x-2 mt-3">
             <button className="bg-white text-black px-4 py-1 rounded hover:bg-gray-200">▶ Play</button>
             <button className="bg-gray-700 px-3 py-1 rounded">＋</button>
           </div>
         </div>
-      )}
+      </div>
+    </motion.div>
+  )}
+</AnimatePresence>
+
     </div>
   );
 };

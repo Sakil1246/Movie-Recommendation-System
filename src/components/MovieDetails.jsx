@@ -3,15 +3,17 @@ import { useLocation } from 'react-router-dom'
 import useTrailerNowPlaying from '../hooks/useTrailerNowPlaying'
 import { useSelector } from 'react-redux'
 import { IMG_URL } from '../utils/constants'
-import useCast from '../hooks/useCast'
-import useGetGenre from '../hooks/useGetGenre'
+import { genreMap } from '../utils/mockData'
+import useCastCrew from '../hooks/useCastCrew'
+
 
 const MovieDetails = () => {
   const [showTrailer, setShowTrailer] = useState(false)
   const location = useLocation()
   const { details } = location.state
-  const cast = useCast({ movieId: details.id });
-  console.log(cast);
+  const {cast, crew} = useCastCrew({ movieId: details.id });
+
+  //console.log(cast);
   useTrailerNowPlaying({ id: details.id })
 
   const trailer = useSelector((store) => store.movies?.trailer?.[details.id])
@@ -20,11 +22,12 @@ const MovieDetails = () => {
   const handleWatchTrailer = () => {
     setShowTrailer(true)
   }
-  const genres=useGetGenre({genreId:details.genre_ids});
-  console.log(genres);
+
+  const genres = details?.genre_ids?.map((id) => genreMap[id]);
+  
   return (
     <div className='bg-black min-h-screen px-4 py-8'>
-        <div className='w-full'>
+      <div className='w-full'>
         {showTrailer && trailerKey1 ? (
           <iframe
             className='w-2/3 aspect-video mx-auto rounded-xl'
@@ -37,7 +40,7 @@ const MovieDetails = () => {
           ></iframe>
         ) : (
           <div className="relative w-full flex justify-center items-center overflow-hidden py-1 ">
-            
+
             <div
               className="absolute inset-0 bg-cover h-[600px] bg-center blur-md brightness-50 scale-100"
               style={{
@@ -53,35 +56,45 @@ const MovieDetails = () => {
 
         )}
       </div>
-     <div className='w-full'>
-      <div className='text-5xl  bg-gradient-to-t from-black font-bold text-white mb-0 py-5  px-5 z-20 relative'>
-        {details.original_title}
-      </div>
-      <div className="flex text-2xl px-5 mb-2 text-green-400 mt-0">
-            {details?.vote_average ? `${Math.floor(details.vote_average * 10)}% Match` : ""}
-            <span className="ml-2 text-gray-400">{details?.release_date}</span>
-          </div>
-      <button className=' text-5xl ml-5 mb-5 text-white bg-slate-500'>＋</button>
-      {!showTrailer && trailerKey1 && (
-        <button
-          onClick={handleWatchTrailer}
-          className='bg-orange-400 relative text-black  font-bold text-2xl py-4 w-full rounded-full hover:bg-orange-300 transition-all duration-300'
-        >
-          ▶️ Watch Trailer
-        </button>
-      )}
-      {/* <h1 className='text-black font-bold text-4xl mt-10 py-4 bg-slate-300 text-center'>
+      <div className='w-full'>
+        <div className='text-5xl  bg-gradient-to-t from-black font-bold text-white mb-0 py-5  px-5 z-20 relative'>
+          {details.original_title}
+        </div>
+        <div className="flex text-2xl px-5 mb-2 text-green-400 mt-0">
+          {details?.vote_average ? `${Math.floor(details.vote_average * 10)}% Match` : ""}
+          <span className="ml-2 text-gray-400">{details?.release_date}</span>
+        </div>
+        <div className='flex text-2xl px-5 mb-2 text-slate-300 mt-0'>
+          <h2> • {genres.join(" •  ")}</h2>
+        </div>
+        <button className=' text-5xl ml-5 mb-5 text-white bg-slate-500'>＋</button>
+        {!showTrailer && trailerKey1 && (
+          <button
+            onClick={handleWatchTrailer}
+            className='bg-orange-400 relative text-black  font-bold text-2xl py-4 w-full rounded-full hover:bg-orange-300 transition-all duration-300'
+          >
+            ▶️ Watch Trailer
+          </button>
+        )}
+        {/* <h1 className='text-black font-bold text-4xl mt-10 py-4 bg-slate-300 text-center'>
         Overview
       </h1> */}
-      <div className='flex  mx-0 mt-6 space-x-10'>
-        <div className='text-slate-300 text-2xl w-1/2 '>
-          {details.overview}
-        </div>
-        <div className='text-red-500'>
-          {cast?.join(',')}
+        <div className='flex  mx-0  mt-6 space-x-10'>
+          <div className=' text-slate-300 text-2xl w-1/2 break-words hyphens-auto break-keep '>
+            {details.overview}
+          </div>
+          <div className='flex flex-col'>
+          <div className='text-slate-500 pl-0 '>
+            Cast:
+            <span className='text-slate-300 hover:underline hover:cursor-pointer'>{cast?.join(',')}</span>
+          </div>
+          <div className='text-slate-500 mt-2 pl-0 '>
+            Crew:
+            <span className='text-slate-300  hover:underline hover:cursor-pointer'>{crew?.join(',')}</span>
+          </div>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   )
 }
