@@ -4,6 +4,7 @@ import useTrailerNowPlaying from '../hooks/useTrailerNowPlaying'
 import { useSelector } from 'react-redux'
 import { IMG_URL } from '../utils/constants'
 import useCast from '../hooks/useCast'
+import useGetGenre from '../hooks/useGetGenre'
 
 const MovieDetails = () => {
   const [showTrailer, setShowTrailer] = useState(false)
@@ -19,7 +20,8 @@ const MovieDetails = () => {
   const handleWatchTrailer = () => {
     setShowTrailer(true)
   }
-
+  const genres=useGetGenre({genreId:details.genre_ids});
+  console.log(genres);
   return (
     <div className='bg-black min-h-screen px-4 py-8'>
         <div className='w-full'>
