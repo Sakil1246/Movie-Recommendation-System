@@ -6,17 +6,14 @@ import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
+import { motion } from 'framer-motion';
 
 
 
 const SignIn_out = () => {
 
 
-    const [isSignIn, setIsSignIn] = useState(false);
-
-
-    // const [email, setEmail] = useState("");
-    // const [password, setPassword] = useState("");
+    const [isSignIn, setIsSignIn] = useState(true);
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
 
@@ -86,41 +83,73 @@ const SignIn_out = () => {
 
 
     return (
-        <div className=' flex flex-col min-h-screen justify-center items-center '
-            style={{ backgroundImage: `url(${bgUrl})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-
+        <div
+            className='flex flex-col min-h-screen justify-center items-center'
+            style={{
+                backgroundImage: `url(${bgUrl})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+            }}
+        >
             <h1 className='absolute top-10 text-red-500 text-6xl font-extrabold'>CiNemO</h1>
-
-            <div className='bg-black shadow-lg bg-opacity-80 p-10 w-96 rounded-lg '>
-                <h2 className='justify-center text-center text-blue-500 font-bold text-2xl'>{isSignIn ? "Sign In" : "Sign Up"}</h2>
-                {!isSignIn &&
-                    <>
-                        <input type='text' placeholder='Enter your full name' className=' border border-gray-300  bg-slate-400  px-6 placeholder:text-black  w-full my-4 h-12 rounded-md'
-                            ref={fullName}
-                        />
-                    </>
-                }
-                <input type='email' placeholder='Enter your email' className=' border border-gray-300 bg-slate-400 w-full placeholder:text-black px-6 my-4 h-12 rounded-md'
+    
+            <motion.div
+                key={isSignIn ? 'signIn' : 'signUp'}
+                initial={{ rotateY: 180, opacity: 0 }}
+                animate={{ rotateY: 0, opacity: 1 }}
+                exit={{ rotateY: -180, opacity: 0 }}
+                transition={{ duration: 0.6, ease: 'easeInOut' }}
+                className='bg-black shadow-lg bg-opacity-80 p-10 w-96 rounded-lg'
+            >
+                <h2 className='justify-center text-center text-blue-500 font-bold text-2xl'>
+                    {isSignIn ? "Sign In" : "Sign Up"}
+                </h2>
+    
+                {!isSignIn && (
+                    <input
+                        type='text'
+                        placeholder='Enter your full name'
+                        className='border border-gray-300 bg-slate-400 px-6 placeholder:text-black w-full my-4 h-12 rounded-md'
+                        ref={fullName}
+                    />
+                )}
+    
+                <input
+                    type='email'
+                    placeholder='Enter your email'
+                    className='border border-gray-300 bg-slate-400 w-full placeholder:text-black px-6 my-4 h-12 rounded-md'
                     ref={email}
-
                 />
-
-                <input type='password' placeholder={isSignIn ? 'Enter your password' : "Create a password"} className='border border-gray-300 px-6 bg-slate-400 w-full placeholder:text-black   my-4 h-12 rounded-md'
-
+    
+                <input
+                    type='password'
+                    placeholder={isSignIn ? 'Enter your password' : 'Create a password'}
+                    className='border border-gray-300 px-6 bg-slate-400 w-full placeholder:text-black my-4 h-12 rounded-md'
                     ref={password}
                 />
+    
                 <p className="text-red-500 text-center">{error}</p>
-                <button className="w-full bg-blue-500 text-white p-2 rounded my-4 h-12 mb-2" onClick={!isSignIn ? handleSignUp : handleSignIn}>
+    
+                <button
+                    className="w-full bg-blue-500 text-white p-2 rounded my-4 h-12 mb-2"
+                    onClick={!isSignIn ? handleSignUp : handleSignIn}
+                >
                     {!isSignIn ? "Sign Up" : "Sign In"}
                 </button>
-                <p className='text-slate-300'>{!isSignIn ? "Already have an account? " : "New here? "}
-                    <span className='cursor-pointer text-white' onClick={() => setIsSignIn(!isSignIn)}>
-                        {isSignIn ? "Sign Up " : "Sign In here"}
+    
+                <p className='text-slate-300'>
+                    {!isSignIn ? "Already have an account? " : "New here? "}
+                    <span
+                        className='cursor-pointer text-white'
+                        onClick={() => setIsSignIn(!isSignIn)}
+                    >
+                        {isSignIn ? "Sign Up" : "Sign In here"}
                     </span>
                 </p>
-            </div>
+            </motion.div>
         </div>
-    )
+    );
+    
 
 }
 export default SignIn_out
