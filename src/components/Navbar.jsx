@@ -27,12 +27,18 @@ const handleLogOut=()=>{
  
 
 }
+
+const handleWatchList=()=>{
+  navigate("/watchlist")
+  setMenuOpen(false);
+}
   return (
-    <nav className="bg-black w-full h-16 border-b-2 px-6 fixed top-0 shadow-lg z-50 flex items-center justify-between">
+    <nav className="bg-black w-full  h-16 border-b-2 px-6 fixed top-0 shadow-lg z-50 flex items-center justify-between">
      
-      <div className="text-orange-400 hover:bg-gray-700 bg-gray-800 cursor-pointer px-4 py-2 rounded-lg font-bold text-2xl">
+      <button className="text-orange-400 hover:bg-gray-700 bg-gray-800 cursor-pointer px-4 py-2 rounded-lg font-bold text-2xl"
+      onClick={()=>navigate("/body")}>
         CiNemO
-      </div>
+      </button>
       
       
       <div className="hidden md:flex text-white gap-16">
@@ -67,13 +73,16 @@ const handleLogOut=()=>{
           </div>
           {isVisible && (
             <div 
-              className="absolute left-0  w-44 h-40 bg-gray-900 rounded-lg shadow-lg bg-opacity-80"
+              className="absolute left-0  w-44 h-auto bg-gray-900 rounded-lg shadow-lg bg-opacity-90"
               onMouseEnter={() => setIsVisible(true)}
               onMouseLeave={() => setIsVisible(false)}
             >
               <ul className="py-2 items-center justify-center ">
                 <li className="px-4 py-2   my-4 text-white hover:bg-white hover:text-black rounded-lg cursor-pointer">Profile</li>
+                <li className="px-4 py-2 my-4 text-white hover:bg-white hover:text-black rounded-lg cursor-pointer" onClick={handleWatchList}>My watchlist</li>
                 <li className="px-4 py-2 text-white hover:bg-white hover:text-black rounded-lg cursor-pointer" onClick={handleLogOut}>Logout</li>
+               
+
               </ul>
             </div>
           )}

@@ -7,6 +7,7 @@ import usePopular from '../hooks/usePopular'
 import useNowplaying from '../hooks/useNowplaying'
 import useTopRated from '../hooks/useTopRated'
 import useUpcoming from '../hooks/useUpcoming'
+import Footer from './Footer'
 
 const Body = () => {
 
@@ -23,7 +24,7 @@ const Body = () => {
       
       <Secondary/>
       
-      
+      <Footer/>
     </div>
   )
 }

@@ -8,6 +8,7 @@ const moviesSlice=createSlice({
         topRated:[],
         upComing:[],
         trailer:{},
+        watchlist:[]
     },
     reducers:{
         addNowPlaying:(state,action)=>{
@@ -43,10 +44,17 @@ const moviesSlice=createSlice({
         },
         removeTrailer: (state, action) => {
             state.trailer=null;
-          }
+        },
+        addWatchlist:(state,action)=>{
+            const movie=action.payload;
+            const existingMovie = state.watchlist.find((item) => item.id === movie.id);
+            if (!existingMovie) {
+                state.watchlist.push(movie);
+            }
+        }
           
     }
 })
-export const {addNowPlaying,addTrailer,removeNowPlaying,removeTrailer,addPopular,removePopular,addTopRated,removeTopRated,addUpcoming,removeUpcoming}=moviesSlice.actions;
+export const {addNowPlaying,addTrailer,removeNowPlaying,removeTrailer,addPopular,removePopular,addTopRated,removeTopRated,addUpcoming,removeUpcoming,addWatchlist}=moviesSlice.actions;
 
 export default moviesSlice.reducer

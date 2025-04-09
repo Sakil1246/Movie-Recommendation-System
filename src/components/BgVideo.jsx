@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import useTrailerNowPlaying from '../hooks/useTrailerNowPlaying';
 import { useSelector } from 'react-redux';
+import MovieDetails from './MovieDetails';
 
 const BgVideo = ({ id }) => {
-  //console.log(id);
   useTrailerNowPlaying({ id });
 
   const video = useSelector((store) => store.movies?.trailer?.[id]);
   const video_key = video?.[0]?.key;
-
+ 
 
   if (!video_key) return null;
   return (

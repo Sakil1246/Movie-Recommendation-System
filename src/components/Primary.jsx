@@ -30,8 +30,8 @@ const Primary = () => {
         {data?.map((movie)=>(
           <SwiperSlide key={movie.id}>
             <div className="max-w-full overflow-hidden pt-[30%] bg-black h-30 md:pt-0">
-              <TitleNowPlaying title={movie.original_title} overview={movie.overview}/>
-              <BgVideo id={movie.id}/>
+              <TitleNowPlaying title={movie.original_title} overview={movie.overview} details={movie}/>
+              <BgVideo id={movie.id} detail={movie}/>
             </div>
 
           </SwiperSlide>

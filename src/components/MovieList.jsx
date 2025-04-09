@@ -3,10 +3,10 @@ import MovieCard from './MovieCard';
 
 const MovieList = ({ list, tittle }) => {
   return (
-    <div className="px-4 w-full">
+    <div className="px-4 z-10 w-full relative overflow-visible">
       {/* <h1 className="text-3xl py-4 font-bold text-orange-400 ">{tittle}</h1> */}
 
-      <div className="overflow-x-auto overflow-visible scrollbar-hide relative z-10">
+      <div className="overflow-x-auto   scrollbar-hide relative z-10">
       <h1 className="text-3xl py-4 font-bold text-orange-400 ">{tittle}</h1>
         <div className="flex space-x-4">
           {list?.map((movie) => (

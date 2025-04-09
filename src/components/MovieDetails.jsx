@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import useTrailerNowPlaying from '../hooks/useTrailerNowPlaying'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { IMG_URL } from '../utils/constants'
 import { genreMap } from '../utils/mockData'
 import useCastCrew from '../hooks/useCastCrew'
 import { motion } from 'framer-motion'
+import { addWatchlist } from '../utils/moviesSlice'
+import { saveWatchlist } from '../utils/savedWatchlist'
 
 
 const MovieDetails = () => {
@@ -14,7 +16,9 @@ const MovieDetails = () => {
   const { details } = location.state
   const { cast, crew } = useCastCrew({ movieId: details.id });
   const [isRate, setIsRate] = useState(false);
-  const navigate=useNavigate();
+  const [list, setList] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   //console.log(cast);
   useTrailerNowPlaying({ id: details.id })
 
@@ -26,16 +30,16 @@ const MovieDetails = () => {
   }
 
   const genres = details?.genre_ids?.map((id) => genreMap[id]);
-  const details2=details;
-  const handleWatchList=()=>{
-    navigate("/watchlist",{state:{details2  }});
+  const details2 = details;
+  const handleWatchList = () => {
+    saveWatchlist("98ibFOqyFkTpi0GhpSNuStPiwJB2", details2)
   }
 
   return (
     <div className='bg-black min-h-screen px-4 py-8'>
       <div className='w-full'>
         {showTrailer && trailerKey1 ? (
-          <iframe 
+          <iframe
             className='w-2/3 aspect-video mx-auto rounded-xl'
             src={`https://www.youtube.com/embed/${trailerKey1}?rel=0&modestbranding=1&autoplay=1`}
             title="YouTube video player"
@@ -83,11 +87,11 @@ const MovieDetails = () => {
               className='text-5xl text-white mb-1'
               onClick={handleWatchList}
             >
-              ＋
+              {!list ?"＋" : "✔"}
             </motion.button>
-            <span className='text-white text-xl'>List</span>
+            <span className='text-white text-xl'>{!list ? "List" : "Added to List"}</span>
           </div>
-
+            
 
           <div className='flex flex-col items-center'>
             <motion.div

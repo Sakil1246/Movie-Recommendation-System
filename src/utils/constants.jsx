@@ -9,7 +9,7 @@ export const options = {
     }
   };
 
-export const IMG_URL="https://image.tmdb.org/t/p/w300/"
+export const IMG_URL="https://image.tmdb.org/t/p/w200/"
 
 export const optionsPost = {
   method: 'POST',

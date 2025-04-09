@@ -23,7 +23,7 @@ const MovieCard = ({ path, details }) => {
     >
       <img
         alt="Movie card"
-        className="w-full h-full object-cover rounded-md transition-transform duration-300 group-hover:scale-110"
+        className="w-full h-full object-contain rounded-md transition-transform duration-300 group-hover:scale-110"
         src={IMG_URL + path}
       />
 
@@ -33,7 +33,7 @@ const MovieCard = ({ path, details }) => {
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1.3, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
             className="absolute top-0 left-0 z-50 w-fit bg-transparent text-white p-0 rounded-md shadow-lg"
           >
             <div className="relative w-64">
@@ -48,7 +48,7 @@ const MovieCard = ({ path, details }) => {
               <img
                 src={IMG_URL + path}
                 alt="Expanded movie"
-                className="relative z-10 w-full h-auto object-cover rounded-md mb-2"
+                className="relative z-10 w-full h-auto object-contain rounded-md mb-2"
               />
               <div className="relative z-10 p-4 bg-zinc-900 rounded-b-md">
                 <h2 className="text-lg font-semibold">
