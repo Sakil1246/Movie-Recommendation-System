@@ -5,6 +5,7 @@ import {  signOut } from "firebase/auth";
 import { auth } from '../utils/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeUser } from '../utils/userSlice';
+import { profileImg } from '../utils/constants';
 
 const Navbar = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -27,7 +28,7 @@ const handleLogOut=()=>{
 
 }
   return (
-    <nav className="bg-black w-full h-16  px-6 fixed top-0 shadow-lg z-50 flex items-center justify-between">
+    <nav className="bg-black w-full h-16 border-b-2 px-6 fixed top-0 shadow-lg z-50 flex items-center justify-between">
      
       <div className="text-orange-400 hover:bg-gray-700 bg-gray-800 cursor-pointer px-4 py-2 rounded-lg font-bold text-2xl">
         CiNemO
@@ -60,7 +61,7 @@ const handleLogOut=()=>{
           <div className='hover:border-white border-4 border-transparent rounded-full p-1'>
             <img
               className="h-12 w-12 rounded-full cursor-pointer"
-              src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+              src={profileImg}
               alt="profile"
             />
           </div>

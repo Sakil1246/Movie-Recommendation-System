@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import useTrailerNowPlaying from '../hooks/useTrailerNowPlaying'
 import { useSelector } from 'react-redux'
 import { IMG_URL } from '../utils/constants'
 import { genreMap } from '../utils/mockData'
 import useCastCrew from '../hooks/useCastCrew'
+import { motion } from 'framer-motion'
 
 
 const MovieDetails = () => {
   const [showTrailer, setShowTrailer] = useState(false)
   const location = useLocation()
   const { details } = location.state
-  const {cast, crew} = useCastCrew({ movieId: details.id });
-
+  const { cast, crew } = useCastCrew({ movieId: details.id });
+  const [isRate, setIsRate] = useState(false);
+  const navigate=useNavigate();
   //console.log(cast);
   useTrailerNowPlaying({ id: details.id })
 
@@ -24,12 +26,16 @@ const MovieDetails = () => {
   }
 
   const genres = details?.genre_ids?.map((id) => genreMap[id]);
-  
+  const details2=details;
+  const handleWatchList=()=>{
+    navigate("/watchlist",{state:{details2  }});
+  }
+
   return (
     <div className='bg-black min-h-screen px-4 py-8'>
       <div className='w-full'>
         {showTrailer && trailerKey1 ? (
-          <iframe
+          <iframe 
             className='w-2/3 aspect-video mx-auto rounded-xl'
             src={`https://www.youtube.com/embed/${trailerKey1}?rel=0&modestbranding=1&autoplay=1`}
             title="YouTube video player"
@@ -67,7 +73,48 @@ const MovieDetails = () => {
         <div className='flex text-2xl px-5 mb-2 text-slate-300 mt-0'>
           <h2> • {genres.join(" •  ")}</h2>
         </div>
-        <button className=' text-5xl ml-5 mb-5 text-white bg-slate-500'>＋</button>
+
+        <div className='flex gap-10 ml-3 items-center'>
+
+          <div className='flex flex-col items-center'>
+            <motion.button
+              whileTap={{ scale: 1.3 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className='text-5xl text-white mb-1'
+              onClick={handleWatchList}
+            >
+              ＋
+            </motion.button>
+            <span className='text-white text-xl'>List</span>
+          </div>
+
+
+          <div className='flex flex-col items-center'>
+            <motion.div
+              whileTap={{ scale: 1.3 }}
+              animate={{ scale: 1.0 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="text-4xl text-white cursor-pointer select-none"
+              onClick={() => setIsRate(!isRate)}
+            >
+              {isRate ? "★" : "☆"}
+            </motion.div>
+            <span className='text-white text-xl mt-1'>Rate</span>
+          </div>
+
+
+          <div className='flex flex-col items-center'>
+            <motion.button
+              whileTap={{ scale: 1.3 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className='text-4xl text-white'
+            >
+              ➤
+            </motion.button>
+            <span className='text-white text-xl mt-1'>Share</span>
+          </div>
+        </div>
+
         {!showTrailer && trailerKey1 && (
           <button
             onClick={handleWatchTrailer}
@@ -80,18 +127,18 @@ const MovieDetails = () => {
         Overview
       </h1> */}
         <div className='flex  mx-0  mt-6 space-x-10'>
-          <div className=' text-slate-300 text-2xl w-1/2 break-words hyphens-auto break-keep '>
+          <div className=' text-slate-300 text-lg w-1/2 break-words hyphens-auto break-keep '>
             {details.overview}
           </div>
           <div className='flex flex-col'>
-          <div className='text-slate-500 pl-0 '>
-            Cast:
-            <span className='text-slate-300 hover:underline hover:cursor-pointer'>{cast?.join(',')}</span>
-          </div>
-          <div className='text-slate-500 mt-2 pl-0 '>
-            Crew:
-            <span className='text-slate-300  hover:underline hover:cursor-pointer'>{crew?.join(',')}</span>
-          </div>
+            <div className='text-slate-500 pl-0 '>
+              Cast:
+              <span className='text-slate-300 hover:underline hover:cursor-pointer'>{cast?.join(',')}</span>
+            </div>
+            <div className='text-slate-500 mt-2 pl-0 '>
+              Crew:
+              <span className='text-slate-300  hover:underline hover:cursor-pointer'>{crew?.join(',')}</span>
+            </div>
           </div>
         </div>
       </div>

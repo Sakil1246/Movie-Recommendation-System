@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { options } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addNowPlaying } from "../utils/moviesSlice";
+import { options } from "../utils/constants";
 
 const useNowplaying=()=>{
     const dispatch=useDispatch();
