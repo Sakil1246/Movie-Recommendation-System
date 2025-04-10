@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -11,7 +12,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyBFv7YLXgWSpR2_QNcuNfNF3b3CAvuyTKk",
   authDomain: "cinemo-3bf9d.firebaseapp.com",
   projectId: "cinemo-3bf9d",
-  storageBucket: "cinemo-3bf9d.firebasestorage.app",
+  storageBucket: "cinemo-3bf9d.appspot.com",
   messagingSenderId: "135308853278",
   appId: "1:135308853278:web:ebdbff7da7c859af38ae0f",
   measurementId: "G-CYHYRS5JF8"
@@ -19,5 +20,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db=getFirestore(app);
 const analytics = getAnalytics(app);
 export const auth = getAuth();
+export { db };

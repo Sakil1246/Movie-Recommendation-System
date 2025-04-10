@@ -19,7 +19,7 @@ const MovieDetails = () => {
   const [list, setList] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  //console.log(cast);
+  const {uid}=useSelector((store) => store.user);
   useTrailerNowPlaying({ id: details.id })
 
   const trailer = useSelector((store) => store.movies?.trailer?.[details.id])
@@ -31,10 +31,17 @@ const MovieDetails = () => {
 
   const genres = details?.genre_ids?.map((id) => genreMap[id]);
   const details2 = details;
-  const handleWatchList = () => {
-    saveWatchlist("98ibFOqyFkTpi0GhpSNuStPiwJB2", details2)
+  
+  const savedList=async()=>{
+    const result=await saveWatchlist(uid,details2);
+    if(result.success){
+      setList(true);
+      alert(result.message);
+    }
+    else{
+      alert(result.message);
+    }
   }
-
   return (
     <div className='bg-black min-h-screen px-4 py-8'>
       <div className='w-full'>
@@ -85,7 +92,7 @@ const MovieDetails = () => {
               whileTap={{ scale: 1.3 }}
               transition={{ type: "spring", stiffness: 300 }}
               className='text-5xl text-white mb-1'
-              onClick={handleWatchList}
+              onClick={savedList}
             >
               {!list ?"＋" : "✔"}
             </motion.button>

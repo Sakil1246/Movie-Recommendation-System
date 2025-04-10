@@ -12,7 +12,7 @@ const WatchListMovie = ({ path, details }) => {
   const movieInfo = () => {
     navigate("/movieDetails", { state: { details } });
   };
-
+  
 
   return (
     <div

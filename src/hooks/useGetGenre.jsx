@@ -8,7 +8,7 @@ const useGetGenre = () => {
     try {
       const data = await fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options);
       const json = await data.json();
-      setGenres(json.genres); // ✅ Save to state
+      setGenres(json.genres); 
     } catch (error) {
       console.error("Failed to fetch genres:", error);
     }
@@ -18,7 +18,7 @@ const useGetGenre = () => {
     getGenre();
   }, []);
 
-  return genres; // ✅ Return genres
+  return genres; 
 };
 
 export default useGetGenre;

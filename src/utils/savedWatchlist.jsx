@@ -1,13 +1,26 @@
-import { doc, setDoc } from "firebase/firestore";
-import db from "./firebase";
+import { doc, updateDoc, arrayUnion, setDoc } from "firebase/firestore";
+import { db } from "./firebase";
 
-export const saveWatchlist = async (userId, watchlist) => {
+export const saveWatchlist = async (userId, movie) => {
+  const userRef = doc(db, "watchlists", userId);
+
   try {
-    await setDoc(doc(db, "watchlists", userId), {
-      movies: watchlist
+    // Use updateDoc and arrayUnion to append movie
+    await updateDoc(userRef, {
+      movies: arrayUnion(movie),
     });
-    console.log("Watchlist saved!");
+
+    return { success: true, message: "Movie added to watchlist!" };
   } catch (err) {
-    console.error("Error saving watchlist:", err);
+    // If the doc doesn't exist yet, create it with setDoc
+    if (err.code === "not-found") {
+      try {
+        await setDoc(userRef, { movies: [movie] });
+        return { success: true, message: "Movie added to new watchlist!" };
+      } catch (setErr) {
+        return { success: false, message: `Error creating watchlist: ${setErr.message}` };
+      }
+    }
+    return { success: false, message: `Error saving movie: ${err.message}` };
   }
 };
