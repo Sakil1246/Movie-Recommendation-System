@@ -1,26 +1,28 @@
-import { doc, updateDoc, arrayUnion, setDoc } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "./firebase";
 
 export const saveWatchlist = async (userId, movie) => {
-  const userRef = doc(db, "watchlists", userId);
-
   try {
-    // Use updateDoc and arrayUnion to append movie
-    await updateDoc(userRef, {
-      movies: arrayUnion(movie),
-    });
+    // Check if this user already has a watchlist
+    const q = query(collection(db, "watchlists"), where("userId", "==", userId));
+    const querySnapshot = await getDocs(q);
 
-    return { success: true, message: "Movie added to watchlist!" };
-  } catch (err) {
-    // If the doc doesn't exist yet, create it with setDoc
-    if (err.code === "not-found") {
-      try {
-        await setDoc(userRef, { movies: [movie] });
-        return { success: true, message: "Movie added to new watchlist!" };
-      } catch (setErr) {
-        return { success: false, message: `Error creating watchlist: ${setErr.message}` };
-      }
+    if (!querySnapshot.empty) {
+      // Update the first watchlist found
+      const docRef = querySnapshot.docs[0].ref;
+      await updateDoc(docRef, {
+        movies: arrayUnion(movie)
+      });
+      return { success: true, message: "Movie added to existing watchlist!" };
+    } else {
+      // Create a new watchlist doc with random ID
+      await addDoc(collection(db, "watchlists"), {
+        userId: userId,
+        movies: [movie]
+      });
+      return { success: true, message: "New watchlist created and movie added!" };
     }
-    return { success: false, message: `Error saving movie: ${err.message}` };
+  } catch (error) {
+    return { success: false, message: `Error: ${error.message}` };
   }
 };

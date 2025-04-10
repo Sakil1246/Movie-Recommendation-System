@@ -10,6 +10,7 @@ export const options = {
   };
 
 export const IMG_URL="https://image.tmdb.org/t/p/w200/"
+export const W_LOGO="https://cdn-icons-png.flaticon.com/128/16566/16566143.png"
 
 export const optionsPost = {
   method: 'POST',

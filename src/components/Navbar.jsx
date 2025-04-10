@@ -13,6 +13,7 @@ const Navbar = () => {
   const navigate=useNavigate();
   const dispatch=useDispatch();
   const user=useSelector((store)=>store.user);
+  const id=useSelector((store)=>store.movies.watchlistId);
 const handleLogOut=()=>{
 
   signOut(auth).then(() => {
@@ -29,7 +30,7 @@ const handleLogOut=()=>{
 }
 
 const handleWatchList=()=>{
-  navigate("/watchlist")
+  navigate(`/watchlist/${id}`)
   setMenuOpen(false);
 }
   return (

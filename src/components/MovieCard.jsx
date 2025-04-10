@@ -8,9 +8,11 @@ import { motion, AnimatePresence } from "framer-motion";
 const MovieCard = ({ path, details }) => {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
+  const {id}=details;
+  //console.log(id);
   const genres = details?.genre_ids?.map((id) => genreMap[id]);
   const movieInfo = () => {
-    navigate("/movieDetails", { state: { details } });
+    navigate(`/movieDetails/${id}`, { state: { details } });
   };
 
 

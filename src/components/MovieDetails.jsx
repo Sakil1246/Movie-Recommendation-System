@@ -42,6 +42,12 @@ const MovieDetails = () => {
       alert(result.message);
     }
   }
+  const sharetoWhatsapp=()=>{
+    const text = `🎬 Check out "${details2.title}" on Cinemo! 🔗 https://yourwebsite.com/movie/${details2.id}`;
+    const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+  
+    window.open(url, "_blank");
+  }
   return (
     <div className='bg-black min-h-screen px-4 py-8'>
       <div className='w-full'>
@@ -119,10 +125,11 @@ const MovieDetails = () => {
               whileTap={{ scale: 1.3 }}
               transition={{ type: "spring", stiffness: 300 }}
               className='text-4xl text-white'
+              onClick={sharetoWhatsapp}
             >
               ➤
             </motion.button>
-            <span className='text-white text-xl mt-1'>Share</span>
+            <span className='text-white text-xl mt-1' >Share</span>
           </div>
         </div>
 

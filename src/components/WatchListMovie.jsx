@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { IMG_URL } from '../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import { genreMap } from '../utils/mockData';
-import { motion, AnimatePresence } from "framer-motion";
+
 
 
 const WatchListMovie = ({ path, details }) => {
+  const {id}=details;
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
   const genres = details?.genre_ids?.map((id) => genreMap[id]);
   const movieInfo = () => {
-    navigate("/movieDetails", { state: { details } });
+    navigate(`/movieDetails${id}` ,{ state: { details } });
   };
-  
+
 
   return (
     <div

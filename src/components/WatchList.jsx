@@ -3,11 +3,20 @@ import WatchListMovie from './WatchListMovie';
 import { useSelector } from 'react-redux';
 import Navbar from './Navbar';
 import { useNavigate } from 'react-router-dom';
+import { W_LOGO } from '../utils/constants';
 
 const WatchList = () => {
   const getWatchlist = useSelector((store) => store.movies?.watchlist);
+ // console.log(getWatchlist);
+   const user = useSelector((store) => store.user);
+   const uid=user?.uid;
  const navigate=useNavigate();
+ const sharetoWhatsapp=()=>{
+  const text = `🎬 Check out my watchlist on Cinemo! 🔗 https://cinemo.com/movie/watchlist/${uid}`;
+  const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
 
+  window.open(url, "_blank");
+}
   return (
     <div className="bg-black min-h-screen w-full relative text-white">
       <Navbar />
@@ -32,8 +41,11 @@ const WatchList = () => {
         </div>
       )}
 
-      <div className='flex items-center justify-center'>
+      <div className='flex items-center justify-center mt-14'>
       <button className='bg-blue-600  px-6 py-2 rounded-md hover:bg-blue-400 hover:rounded-xl' onClick={()=>{navigate("/body")}}>{!(getWatchlist.length===0)?"Add More":"Add to my watchlist"}</button>
+      <button className='bg-black px-6 py-2' onClick={sharetoWhatsapp}>
+        <img src={W_LOGO} alt='share' className='w-14 h-12'/>
+      </button>
     </div>
     </div>
   );

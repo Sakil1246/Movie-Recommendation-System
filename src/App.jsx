@@ -7,7 +7,7 @@ import  { persistor } from './utils/Store'
 import { auth } from './utils/firebase'
 import { onAuthStateChanged } from "firebase/auth";
 import { addUser, removeUser } from './utils/userSlice'
-import { removeNowPlaying, removePopular, removeTopRated, removeTrailer, removeUpcoming, removeWatchlist } from './utils/moviesSlice'
+import { removeNowPlaying, removePopular, removeTopRated, removeTrailer, removeUpcoming, removeWatchlist, removeWatchlistId } from './utils/moviesSlice'
 import MovieDetails from './components/MovieDetails'
 import WatchList from './components/WatchList'
 const App = () => {
@@ -36,6 +36,7 @@ const App = () => {
         dispatch(removeTrailer());
         dispatch(removeUpcoming());
         dispatch(removeWatchlist());
+        dispatch(removeWatchlistId());
         persistor.purge();
 
       }
@@ -47,11 +48,14 @@ const App = () => {
   return (
     <div>
         <BrowserRouter>
+        
           <Routes>
             <Route path="/" element={<SignIn_out />} />
+            
             <Route path="/body" element={<Body />} />
-            <Route path="/movieDetails" element={<MovieDetails />} />
-            <Route path="/watchlist" element={<WatchList/>} />
+            <Route path="/movieDetails/:id" element={<MovieDetails />} />
+            <Route path="/watchlist/:id" element={<WatchList/>} />
+            
           </Routes>
         </BrowserRouter>
     </div>
