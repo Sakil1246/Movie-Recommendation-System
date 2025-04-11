@@ -11,7 +11,7 @@ const WatchListMovie = ({ path, details }) => {
   const navigate = useNavigate();
   const genres = details?.genre_ids?.map((id) => genreMap[id]);
   const movieInfo = () => {
-    navigate(`/movieDetails${id}` ,{ state: { details } });
+    navigate(`/movieDetails/${id}` ,{ state: { details } });
   };
 
 

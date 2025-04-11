@@ -18,7 +18,7 @@ const MovieCard = ({ path, details }) => {
 
   return (
     <div
-      className="relative  w-fit h-fit group cursor-pointer"
+      className="w-fit h-fit group cursor-pointer relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={movieInfo}

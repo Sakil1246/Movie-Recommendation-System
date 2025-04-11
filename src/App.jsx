@@ -10,6 +10,7 @@ import { addUser, removeUser } from './utils/userSlice'
 import { removeNowPlaying, removePopular, removeTopRated, removeTrailer, removeUpcoming, removeWatchlist, removeWatchlistId } from './utils/moviesSlice'
 import MovieDetails from './components/MovieDetails'
 import WatchList from './components/WatchList'
+import Tertiary from './components/Tertiary'
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
@@ -53,8 +54,9 @@ const App = () => {
             <Route path="/" element={<SignIn_out />} />
             
             <Route path="/body" element={<Body />} />
-            <Route path="/movieDetails/:id" element={<MovieDetails />} />
+            <Route path="/movieDetails/:id" element={<Tertiary />} />
             <Route path="/watchlist/:id" element={<WatchList/>} />
+            {/* <Route path="/tertiary/:id" element={<Tertiary/>}/> */}
             
           </Routes>
         </BrowserRouter>

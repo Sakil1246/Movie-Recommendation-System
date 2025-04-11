@@ -10,10 +10,9 @@ import { addWatchlist } from '../utils/moviesSlice'
 import { saveWatchlist } from '../utils/savedWatchlist'
 
 
-const MovieDetails = () => {
+const MovieDetails = ({details}) => {
   const [showTrailer, setShowTrailer] = useState(false)
-  const location = useLocation()
-  const { details } = location.state
+  
   const { cast, crew } = useCastCrew({ movieId: details.id });
   const [isRate, setIsRate] = useState(false);
   const [list, setList] = useState(false);

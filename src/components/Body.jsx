@@ -12,7 +12,7 @@ import useGetWatchlist from '../hooks/useGetWatchlist'
 import { useSelector } from 'react-redux'
 
 const Body = () => {
-  const {uid}=useSelector((store) => store.user);
+  const uid=useSelector((store) => store.user?.uid);
   useNowplaying();
   usePopular();
   useTopRated();
