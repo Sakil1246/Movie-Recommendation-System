@@ -15,7 +15,7 @@ import SearchMovie from './SearchMovie'
 const Body = () => {
   const uid = useSelector((store) => store.user?.uid);
   const isSearch = useSelector((store) => store.search?.searchMovie);
-  console.log(isSearch);
+  //console.log(isSearch);
   useNowplaying();
   usePopular();
   useTopRated();

@@ -36,22 +36,23 @@ const SignIn_out = () => {
                 //console.log(user);
                 updateProfile(auth.currentUser, {
                     displayName: fullName.current.value, photoURL: "https://example.com/jane-q-user/profile.jpg"
-                  }).then(() => {
+                }).then(() => {
                     // Profile updated!
                     // ...
-                    const {uid,email,displayName} = auth.currentUser;
-                            //console.log(uid, email, displayName);
-                            dispatch(addUser({
-                              uid:uid,
-                              email:email,
-                              displayName:displayName}
-                            ));
-                  }).catch((error) => {
+                    const { uid, email, displayName } = auth.currentUser;
+                    //console.log(uid, email, displayName);
+                    dispatch(addUser({
+                        uid: uid,
+                        email: email,
+                        displayName: displayName
+                    }
+                    ));
+                }).catch((error) => {
                     // An error occurred
                     // ...
-                  });
-                  
-                 navigate("/body");
+                });
+
+                navigate("/body");
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -69,7 +70,7 @@ const SignIn_out = () => {
                 //console.log(user);
                 // ...
                 //dispatch(addUser(user));
-                 navigate("/body");
+                navigate("/body");
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -92,7 +93,7 @@ const SignIn_out = () => {
             }}
         >
             <h1 className='absolute top-10 text-red-500 text-6xl font-extrabold'>CiNemO</h1>
-    
+
             <motion.div
                 key={isSignIn ? 'signIn' : 'signUp'}
                 initial={{ rotateY: 180, opacity: 0 }}
@@ -104,7 +105,7 @@ const SignIn_out = () => {
                 <h2 className='justify-center text-center text-blue-500 font-bold text-2xl'>
                     {isSignIn ? "Sign In" : "Sign Up"}
                 </h2>
-    
+
                 {!isSignIn && (
                     <input
                         type='text'
@@ -113,30 +114,30 @@ const SignIn_out = () => {
                         ref={fullName}
                     />
                 )}
-    
+
                 <input
                     type='email'
                     placeholder='Enter your email'
                     className='border border-gray-300 bg-slate-400 w-full placeholder:text-black px-6 my-4 h-12 rounded-md'
                     ref={email}
                 />
-    
+
                 <input
                     type='password'
                     placeholder={isSignIn ? 'Enter your password' : 'Create a password'}
                     className='border border-gray-300 px-6 bg-slate-400 w-full placeholder:text-black my-4 h-12 rounded-md'
                     ref={password}
                 />
-    
+
                 <p className="text-red-500 text-center">{error}</p>
-    
+
                 <button
                     className="w-full bg-blue-500 text-white p-2 rounded my-4 h-12 mb-2"
                     onClick={!isSignIn ? handleSignUp : handleSignIn}
                 >
                     {!isSignIn ? "Sign Up" : "Sign In"}
                 </button>
-    
+
                 <p className='text-slate-300'>
                     {!isSignIn ? "Already have an account? " : "New here? "}
                     <span
@@ -149,7 +150,7 @@ const SignIn_out = () => {
             </motion.div>
         </div>
     );
-    
+
 
 }
 export default SignIn_out

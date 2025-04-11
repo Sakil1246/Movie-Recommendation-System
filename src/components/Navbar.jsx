@@ -46,8 +46,7 @@ const Navbar = () => {
             className="text-orange-400 hover:bg-gray-700 bg-gray-800 cursor-pointer px-4 py-2 rounded-lg font-bold text-2xl"
             onClick={() => navigate("/body")}
           >
-            CiNemO
-          </button>
+            Punit ❤️ Stuti          </button>
           )}
         </div>
            <div className=''>
