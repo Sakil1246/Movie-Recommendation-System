@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Navbar from './Navbar';
 import { useNavigate } from 'react-router-dom';
 import { W_LOGO } from '../utils/constants';
+import SearchMovie from './SearchMovie';
 
 const WatchList = () => {
   const getWatchlist = useSelector((store) => store.movies?.watchlist);
@@ -17,9 +18,13 @@ const WatchList = () => {
 
   window.open(url, "_blank");
 }
+const isSearch = useSelector((store) => store.search?.searchMovie);
   return (
+    
     <div className="bg-black min-h-screen w-full relative text-white">
       <Navbar />
+      {isSearch &&(
+        <>
       {(getWatchlist.length ===0)  && (
         <div className="flex  items-center justify-center min-h-[80vh] mt-16">
           <h1 className="text-3xl text-center font-bold  text-orange-400">
@@ -47,7 +52,14 @@ const WatchList = () => {
         <img src={W_LOGO} alt='share' className='w-14 h-12'/>
       </button>
     </div>
+    </>)}
+    {! isSearch &&(
+      <>
+      <SearchMovie/>
+      </>
+    )}
     </div>
+    
   );
 
 
