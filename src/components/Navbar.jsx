@@ -6,6 +6,7 @@ import { auth } from '../utils/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeUser } from '../utils/userSlice';
 import { profileImg } from '../utils/constants';
+import { toggleSearch } from '../utils/searchSlice';
 
 const Navbar = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -32,6 +33,10 @@ const handleLogOut=()=>{
 const handleWatchList=()=>{
   navigate(`/watchlist/${id}`)
   setMenuOpen(false);
+}
+
+const handleSearch=()=>{
+  dispatch(toggleSearch());
 }
   return (
     <nav className="bg-black w-full  h-16 border-b-2 px-6 fixed top-0 shadow-lg z-50 flex items-center justify-between">
@@ -62,8 +67,9 @@ const handleWatchList=()=>{
         </div>
       )}
       
-      
       <div className="relative flex items-center px-4 py-2 rounded-lg">
+      <button className='text-white px-6 rounded-lg py-2 bg-slate-800'onClick={handleSearch   }>Search</button>
+
         <div className="relative" onMouseEnter={() => setIsVisible(true)} onMouseLeave={() => setIsVisible(false)}>
           <div className='hover:border-white border-4 border-transparent rounded-full p-1'>
             <img

@@ -10,24 +10,33 @@ import useUpcoming from '../hooks/useUpcoming'
 import Footer from './Footer'
 import useGetWatchlist from '../hooks/useGetWatchlist'
 import { useSelector } from 'react-redux'
+import SearchMovie from './SearchMovie'
 
 const Body = () => {
-  const uid=useSelector((store) => store.user?.uid);
+  const uid = useSelector((store) => store.user?.uid);
+  const isSearch = useSelector((store) => store.search?.searchMovie);
+  console.log(isSearch);
   useNowplaying();
   usePopular();
   useTopRated();
   useUpcoming();
-  useGetWatchlist({userId:uid});
+  useGetWatchlist({ userId: uid });
 
   return (
     <div className='min-h-screen bg-black'>
-      <Navbar/>
+      <Navbar />
 
-      <Primary/>
-      
-      <Secondary/>
-      
-      <Footer/>
+      {isSearch && <div>(<Primary />
+
+        <Secondary />
+
+        <Footer />)
+      </div>}
+      {!isSearch && (
+        <div>
+          <SearchMovie />
+        </div>
+      )}
     </div>
   )
 }
