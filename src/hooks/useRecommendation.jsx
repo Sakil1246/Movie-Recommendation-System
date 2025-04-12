@@ -7,7 +7,7 @@ const getRecommendation=async()=>{
     const recom=await fetch(`https://api.themoviedb.org/3/movie/${id}/recommendations?language=en-US&page=1`, options);
     const json=await recom.json();
     //console.log(json.results);
-    setRecommendation(json.results);
+    setRecommendation(json.results.slice(0,18));
 }
 useEffect(()=>{
     getRecommendation();
