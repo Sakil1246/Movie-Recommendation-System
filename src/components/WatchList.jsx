@@ -23,9 +23,9 @@ const isSearch = useSelector((store) => store.search?.searchMovie);
     
     <div className="bg-black min-h-screen w-full relative text-white">
       <Navbar />
-      {isSearch &&(
+      {!isSearch &&(
         <>
-      {(getWatchlist.length ===0)  && (
+      {(getWatchlist?.length ===0)  && (
         <div className="flex  items-center justify-center min-h-[80vh] mt-16">
           <h1 className="text-3xl text-center font-bold  text-orange-400">
             Ooops 🧐!! Looks like your Watchlist is empty
@@ -36,9 +36,9 @@ const isSearch = useSelector((store) => store.search?.searchMovie);
       {(getWatchlist.length !==0) && (
         <div className="px-4 mt-16 ">
           <h1 className="text-3xl ml-3 py-4  text-center font-bold text-orange-400">My Watch List</h1>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 ">
+          <div className="grid grid-cols-2 sm:grid-cols-3  md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 ">
             {getWatchlist.map((movie) => (
-              <div key={movie.id} className="w-full">
+              <div key={movie.id} className="w-full h-full ">
                 <WatchListMovie path={movie.poster_path} details={movie} />
               </div>
             ))}
@@ -53,7 +53,7 @@ const isSearch = useSelector((store) => store.search?.searchMovie);
       </button>
     </div>
     </>)}
-    {! isSearch &&(
+    { isSearch &&(
       <>
       <SearchMovie/>
       </>

@@ -12,7 +12,7 @@ const SearchMovie = () => {
     };
 
     return (
-        <div className='flex justify-center'>
+        <div className='flex flex-col items-center justify-center'>
             <div className='flex items-center mt-20'>
                 <input
                     type='text'
@@ -24,6 +24,7 @@ const SearchMovie = () => {
                     Search
                 </button>
             </div>
+            <div className='mt-7'>
             {(result.length !== 0) && (
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 ">
                     {result?.map((movie) => (
@@ -33,6 +34,7 @@ const SearchMovie = () => {
                     ))}
                 </div>
             )}
+            </div>
 
             {/* {(result.length==0)&&(
             <div className='relative mt-96'>

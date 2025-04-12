@@ -40,17 +40,17 @@ const Navbar = () => {
   return (
     <nav className="bg-black w-full h-16 border-b-2 px-6 fixed top-0 shadow-lg z-50 flex items-center justify-between">
       <div className="flex items-center  justify-center gap-6">
-      {isSearch && (
+      {!isSearch && (
         
           <button
             className="text-orange-400 hover:bg-gray-700 bg-gray-800 cursor-pointer px-4 py-2 rounded-lg font-bold text-2xl"
             onClick={() => navigate("/body")}
           >
-            Punit ❤️ Stuti          </button>
+            CiNeMo </button>
           )}
         </div>
            <div className=''>
-            {isSearch &&(
+            {!isSearch &&(
               <>
           <div className="hidden md:flex text-white items-center   gap-16 justify-center w-full">
             <Link to="/body" className="hover:text-orange-400 transition">Home</Link>
@@ -79,7 +79,7 @@ const Navbar = () => {
           className="text-white px-6 rounded-lg py-2 hover:rounded-2xl hover:bg-slate-600 bg-slate-800"
           onClick={handleSearch}
         >
-          {isSearch?"Search":"Back"}
+          {!isSearch?"🔍":"Back"}
         </button>
 
         <div

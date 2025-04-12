@@ -24,7 +24,7 @@ const MovieCard = ({ path, details }) => {
       onClick={movieInfo}
     >
       <img
-        alt="Movie card"
+        alt={details?.title}
         className="w-full h-full object-contain rounded-md transition-transform duration-300 group-hover:scale-110"
         src={IMG_URL + path}
       />
@@ -49,7 +49,7 @@ const MovieCard = ({ path, details }) => {
               />
               <img
                 src={IMG_URL + path}
-                alt="Expanded movie"
+                alt={details?.title}
                 className="relative z-10 w-full h-auto object-contain rounded-md mb-2"
               />
               <div className="relative z-10 p-4 bg-zinc-900 rounded-b-md">

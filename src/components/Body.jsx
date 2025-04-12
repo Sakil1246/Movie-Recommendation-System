@@ -26,13 +26,13 @@ const Body = () => {
     <div className='min-h-screen bg-black'>
       <Navbar />
 
-      {isSearch && <div>(<Primary />
+      {!isSearch && <div>(<Primary />
 
         <Secondary />
 
         <Footer />)
       </div>}
-      {!isSearch && (
+      {isSearch && (
         <div>
           <SearchMovie />
         </div>
