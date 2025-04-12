@@ -14,9 +14,11 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const Name = (user?.displayName || "").split(" ")[0];
+  
   const id = useSelector((store) => store.movies.watchlistId);
   const isSearch = useSelector((store) => store.search?.searchMovie);
-
+  
   const handleLogOut = () => {
     signOut(auth)
       .then(() => {
@@ -142,7 +144,7 @@ const Navbar = () => {
 
         {user && (
           <p className="ml-4 text-white hidden md:block">
-            Welcome {user.displayName}
+            Welcome {Name}
           </p>
         )}
       </div>

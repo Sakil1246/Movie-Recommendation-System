@@ -12,7 +12,7 @@ const MovieCard = ({ path, details }) => {
   //console.log(id);
   const genres = details?.genre_ids?.map((id) => genreMap[id]);
   const movieInfo = () => {
-    navigate(`/movieDetails/${id}`, { state: { details } });
+    navigate(`/tertiary/${id}`, { state: { details } });
   };
 
 

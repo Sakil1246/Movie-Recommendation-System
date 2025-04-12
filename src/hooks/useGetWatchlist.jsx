@@ -17,9 +17,9 @@ const useGetWatchlist = ({ userId }) => {
         const data = docSnap.data();
         const watchlistId = docSnap.id;
 
-        // Push to Redux
+        
         dispatch(addWatchlist(data.movies));
-        dispatch(setWatchlistId(watchlistId)); // 🔥 Set ID in Redux
+        dispatch(setWatchlistId(watchlistId)); 
 
         return {
           success: true,

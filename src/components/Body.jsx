@@ -20,7 +20,7 @@ const Body = () => {
   usePopular();
   useTopRated();
   useUpcoming();
-  useGetWatchlist({ userId: uid });
+  
 
   return (
     <div className='min-h-screen bg-black'>

@@ -3,7 +3,7 @@ import { options } from "../utils/constants";
 
 const useCastCrew = ({ movieId }) => {
     const [cast,setCast]=useState([]);
-    const [crew,setCrew]=useState();
+    const [crew,setCrew]=useState([]);
     const getCastCrew = async () => {
         const data = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits`, options);
         const json = await data.json();
@@ -25,7 +25,7 @@ const useCastCrew = ({ movieId }) => {
 
     useEffect(() => {
         getCastCrew();
-    }, []);
+    }, [movieId]);
     return { cast, crew };
 }
 export default useCastCrew;

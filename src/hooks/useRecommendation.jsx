@@ -11,7 +11,7 @@ const getRecommendation=async()=>{
 }
 useEffect(()=>{
     getRecommendation();
-},[]);
+},[id]);
 return recommendation;
 }
 
