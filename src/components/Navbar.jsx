@@ -5,7 +5,7 @@ import { signOut } from "firebase/auth";
 import { auth } from '../utils/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeUser } from '../utils/userSlice';
-import { profileImg } from '../utils/constants';
+import { profileImg, SEARCH_ICON } from '../utils/constants';
 import { toggleSearch } from '../utils/searchSlice';
 
 const Navbar = () => {
@@ -75,12 +75,30 @@ const Navbar = () => {
        
 
       <div className="relative flex items-center justify-end right-0  px-4 py-2 rounded-lg">
-        <button
-          className="text-white px-6 rounded-lg py-2 hover:rounded-2xl hover:bg-slate-600 bg-slate-800"
-          onClick={handleSearch}
-        >
-          {!isSearch?"🔍":"Back"}
-        </button>
+      <button
+  className={`text-white px-6 rounded-lg py-2 hover:rounded-2xl  ${isSearch? "bg-slate-800 hover:bg-slate-600":"bg-black"} flex items-center gap-2`}
+  onClick={handleSearch}
+>
+  {!isSearch ? (
+    <svg
+      
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className="w-5 h-5"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
+      />
+    </svg>
+  ) : (
+    "Back"
+  )}
+</button>
+
 
         <div
           className="relative ml-4"
