@@ -5,13 +5,13 @@ import Recommendation from './Recommendation';
 
 const Tertiary = () => {
 
-const location = useLocation();
+  const location = useLocation();
   const { details } = location.state;
-  const id=details?.id;
-  
+  const id = details?.id;
+
   return (
     <div className='min-h-screen bg-black'>
-      <MovieDetails details={details}/>
+      <MovieDetails details={details} />
       <Recommendation id={id} />
     </div>
   )

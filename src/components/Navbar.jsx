@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeUser } from '../utils/userSlice';
 import { profileImg, SEARCH_ICON } from '../utils/constants';
 import { toggleSearch } from '../utils/searchSlice';
+import useGetFavourite from '../hooks/useGetFavourite';
+import useGetWatchlist from '../hooks/useGetWatchlist';
 
 const Navbar = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -15,7 +17,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const Name = (user?.displayName || "").split(" ")[0];
-
+  useGetFavourite({userId: user.uid});
+  useGetWatchlist({userId: user.uid});
   const wid = useSelector((store) => store.movies.watchlistId);
   const fid=useSelector((store)=>store.movies.favouriteId)
   const isSearch = useSelector((store) => store.isSearch);
@@ -62,8 +65,8 @@ const Navbar = () => {
           <>
             <div className="hidden md:flex text-white items-center   gap-16 justify-center w-full">
               <Link to="/body" className="hover:text-orange-400 transition">Home</Link>
-              <Link to="/about" className="hover:text-orange-400 transition">About</Link>
-              <Link to="/contact" className="hover:text-orange-400 transition">Contact</Link>
+              <Link to="/body" className="hover:text-orange-400 transition">About</Link>
+              <Link to="/body" className="hover:text-orange-400 transition">Contact</Link>
             </div>
 
             <button className="md:hidden text-white" onClick={() => setMenuOpen(!menuOpen)}>

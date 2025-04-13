@@ -12,7 +12,7 @@ const WatchList = () => {
   const uid = user?.uid;
   useGetWatchlist({ userId: uid });
   const getWatchlist = useSelector((store) => store.movies?.watchlist);
-  // console.log(getWatchlist);
+   console.log(getWatchlist);
 
   const navigate = useNavigate();
   const sharetoWhatsapp = () => {
@@ -28,7 +28,7 @@ const WatchList = () => {
       <Navbar />
       {!isSearch && (
         <>
-          {(getWatchlist?.length === 0) && (
+          {(getWatchlist?.length === 0 || getWatchlist ===null) && (
             <div className="flex  items-center justify-center min-h-[80vh] mt-16">
               <h1 className="text-3xl text-center font-bold  text-orange-400">
                 Ooops 🧐!! Looks like your Watchlist is empty
@@ -36,7 +36,7 @@ const WatchList = () => {
             </div>
           )}
 
-          {(getWatchlist?.length !== 0) && (
+          {(getWatchlist?.length !== 0 && getWatchlist !==null) && (
             <div className="px-4 mt-16 ">
               <h1 className="text-3xl ml-3 py-4  text-center font-bold text-orange-400">My Watch List</h1>
               <div className="grid grid-cols-2 sm:grid-cols-3  md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 ">
@@ -50,10 +50,10 @@ const WatchList = () => {
           )}
 
           <div className='flex items-center justify-center mt-14'>
-            <button className='bg-blue-600  px-6 py-2 rounded-md hover:bg-blue-400 hover:rounded-xl' onClick={() => { navigate("/body") }}>{!(getWatchlist?.length === 0) ? "Add More" : "Add to my watchlist"}</button>
-            <button className='bg-black px-6 py-2' onClick={sharetoWhatsapp}>
+            <button className='bg-blue-600  px-6 py-2 rounded-md hover:bg-blue-400 hover:rounded-xl' onClick={() => { navigate("/body") }}>{!(getWatchlist?.length === 0 || getWatchlist ===null) ? "Add More" : "Add to my watchlist"}</button>
+            {!(getWatchlist?.length === 0 || getWatchlist ===null)&&(<button className='bg-black px-6 py-2' onClick={sharetoWhatsapp}>
               <img src={W_LOGO} alt='share' className='w-14 h-12' />
-            </button>
+            </button>)}
           </div>
         </>)}
       {isSearch && (

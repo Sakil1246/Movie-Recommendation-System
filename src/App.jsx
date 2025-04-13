@@ -7,7 +7,7 @@ import  { persistor } from './utils/Store'
 import { auth } from './utils/firebase'
 import { onAuthStateChanged } from "firebase/auth";
 import { addUser, removeUser } from './utils/userSlice'
-import { removeNowPlaying, removePopular, removeTopRated, removeTrailer, removeUpcoming, removeWatchlist, removeWatchlistId } from './utils/moviesSlice'
+import { removeFavourite, removeFavouriteId, removeNowPlaying, removePopular, removeTopRated, removeTrailer, removeUpcoming, removeWatchlist, removeWatchlistId } from './utils/moviesSlice'
 import MovieDetails from './components/MovieDetails'
 import WatchList from './components/WatchList'
 import Tertiary from './components/Tertiary'
@@ -42,6 +42,8 @@ const App = () => {
         dispatch(removeWatchlist());
         dispatch(removeWatchlistId());
         dispatch(removeSearch());
+        dispatch(removeFavouriteId());
+        dispatch(removeFavourite());
         persistor.purge();
 
       }
