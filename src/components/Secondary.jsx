@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import MovieList from './MovieList';
+import ShimmerCard from './Shimmer';
 
 const Secondary = () => {
 
@@ -11,7 +12,7 @@ const Secondary = () => {
 
   return (
     <div className='bg-black'>
-      <div className=' mt-0 md:-mt-52 pl-4 md:pl-12 relative z-20'>
+    {(nowPlaying || popular || topRated || upcoming)&&(  <div className=' mt-0 md:-mt-52 pl-4 md:pl-12 relative z-20'>
         <div className=' relative z-0'>
         <MovieList list={nowPlaying} tittle={"Now Playing"} />
         <MovieList list={popular} tittle={"Popular"} />
@@ -19,7 +20,15 @@ const Secondary = () => {
         <MovieList list={upcoming} tittle={"Upcoming"} />
         </div>
 
+      </div>)}
+
+      {(!nowPlaying || !popular || !topRated || !upcoming)&&(
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+        {Array(12).fill().map((_, index) => (
+          <ShimmerCard key={index} />
+        ))}
       </div>
+      )}
     </div>
   )
 }

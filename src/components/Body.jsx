@@ -20,23 +20,25 @@ const Body = () => {
   usePopular();
   useTopRated();
   useUpcoming();
-  
+ 
 
   return (
     <div className='min-h-screen bg-black'>
       <Navbar />
 
-      {!isSearch && <div>(<Primary />
+      {!isSearch && (<div>(<Primary />
 
         <Secondary />
 
         <Footer />)
-      </div>}
+      </div>)}
       {isSearch && (
         <div>
           <SearchMovie />
         </div>
       )}
+
+
     </div>
   )
 }

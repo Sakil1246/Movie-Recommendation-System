@@ -6,7 +6,7 @@ const TitleNowPlaying = ({title,overview,details}) => {
   const navigate=useNavigate();
   const id=details?.id;
   const handleDetails=()=>{
-    navigate(`/movieDetails/${id}`, { state: { details } });
+    navigate(`/tertiary/${id}`, { state: { details } });
   }
   return (
     <div className='w-screen aspect-video pt-[5%] mt-1 px-4 md:px-20 absolute text-white bg-gradient-to-r from-black'>
