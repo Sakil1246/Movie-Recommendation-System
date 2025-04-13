@@ -9,7 +9,9 @@ const moviesSlice = createSlice({
         upComing: [],
         trailer: {},
         watchlist: [],
+        favourite:[],
         watchlistId: null,
+        favouriteId:null
     },
     reducers: {
         addNowPlaying: (state, action) => {
@@ -56,10 +58,24 @@ const moviesSlice = createSlice({
             state.watchlist = null;
         },
         removeWatchlistId: (state, action) => {
-            state.setWatchlistId = null;
+            state.watchlistId = null;
+        },
+        addFavourite: (state, action) => {
+            state.favourite = action.payload;
+        },
+        setFavouriteId: (state, action) => {
+            state.favouriteId = action.payload;
+        },
+        removeFavourite: (state, action) => {
+            state.favourite = null;
+        },
+        removeFavouriteId: (state, action) => {
+            state.favouriteId = null;
         }
+
+
     }
 })
-export const { addNowPlaying, addTrailer, removeNowPlaying, removeTrailer, addPopular, removePopular, addTopRated, removeTopRated, addUpcoming, removeUpcoming, addWatchlist, removeWatchlist, setWatchlistId, removeWatchlistId } = moviesSlice.actions;
+export const { addNowPlaying, addTrailer, removeNowPlaying, removeTrailer, addPopular, removePopular, addTopRated, removeTopRated, addUpcoming, removeUpcoming, addWatchlist, removeWatchlist, setWatchlistId, removeWatchlistId,addFavourite,removeFavourite,setFavouriteId,removeFavouriteId } = moviesSlice.actions;
 
 export default moviesSlice.reducer

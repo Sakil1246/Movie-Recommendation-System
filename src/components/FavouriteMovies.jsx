@@ -5,13 +5,13 @@ import Navbar from './Navbar';
 import { useNavigate } from 'react-router-dom';
 import { W_LOGO } from '../utils/constants';
 import SearchMovie from './SearchMovie';
-import useGetWatchlist from '../hooks/useGetWatchlist';
+import useGetFavourite from '../hooks/useGetFavourite';
 
-const WatchList = () => {
+const FavouriteMovies = () => {
   const user = useSelector((store) => store.user);
   const uid = user?.uid;
-  useGetWatchlist({ userId: uid });
-  const getWatchlist = useSelector((store) => store.movies?.watchlist);
+  useGetFavourite({ userId: uid });
+  const getFavourite = useSelector((store) => store.movies?.favourite);
   // console.log(getWatchlist);
 
   const navigate = useNavigate();
@@ -28,19 +28,19 @@ const WatchList = () => {
       <Navbar />
       {!isSearch && (
         <>
-          {(getWatchlist?.length === 0) && (
+          {(getFavourite?.length === 0) && (
             <div className="flex  items-center justify-center min-h-[80vh] mt-16">
               <h1 className="text-3xl text-center font-bold  text-orange-400">
-                Ooops 🧐!! Looks like your Watchlist is empty
+                Oooh!! Don't you have favourite movie??
               </h1>
             </div>
           )}
 
-          {(getWatchlist?.length !== 0) && (
+          {(getFavourite?.length !== 0) && (
             <div className="px-4 mt-16 ">
-              <h1 className="text-3xl ml-3 py-4  text-center font-bold text-orange-400">My Watch List</h1>
+              <h1 className="text-3xl ml-3 py-4  text-center font-bold text-orange-400">My Favourite</h1>
               <div className="grid grid-cols-2 sm:grid-cols-3  md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 ">
-                {getWatchlist?.map((movie) => (
+                {getFavourite?.map((movie) => (
                   <div key={movie.id} className="w-full h-full ">
                     <WatchListMovie path={movie.poster_path} details={movie} />
                   </div>
@@ -50,7 +50,7 @@ const WatchList = () => {
           )}
 
           <div className='flex items-center justify-center mt-14'>
-            <button className='bg-blue-600  px-6 py-2 rounded-md hover:bg-blue-400 hover:rounded-xl' onClick={() => { navigate("/body") }}>{!(getWatchlist?.length === 0) ? "Add More" : "Add to my watchlist"}</button>
+            <button className='bg-blue-600  px-6 py-2 rounded-md hover:bg-blue-400 hover:rounded-xl' onClick={() => { navigate("/body") }}>{!(getFavourite?.length === 0) ? "Add More" : "Add to my favourite"}</button>
             <button className='bg-black px-6 py-2' onClick={sharetoWhatsapp}>
               <img src={W_LOGO} alt='share' className='w-14 h-12' />
             </button>
@@ -68,4 +68,4 @@ const WatchList = () => {
 
 };
 
-export default WatchList;
+export default FavouriteMovies;

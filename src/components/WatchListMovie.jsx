@@ -13,7 +13,7 @@ const WatchListMovie = ({ path, details }) => {
  
 
   const movieInfo = () => {
-    navigate(`/movieDetails/${id}`, { state: { details } });
+    navigate(`/tertiary/${id}`, { state: { details } });
   };
 
 

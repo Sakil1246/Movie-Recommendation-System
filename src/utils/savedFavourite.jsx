@@ -1,10 +1,10 @@
 import { collection, addDoc, query, where, getDocs, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "./firebase";
 
-export const saveWatchlist = async (userId, movie) => {
+export const saveFavourite = async (userId, movie) => {
   try {
     // Check if this user already has a watchlist
-    const q = query(collection(db, "watchlists"), where("userId", "==", userId));
+    const q = query(collection(db, "favourite"), where("userId", "==", userId));
     const querySnapshot = await getDocs(q);
 
     if (!querySnapshot.empty) {
@@ -13,24 +13,24 @@ export const saveWatchlist = async (userId, movie) => {
       await updateDoc(docRef, {
         movies: arrayUnion(movie)
       });
-      return { success: true, message: "Movie added to existing watchlist!" };
+      return { success: true, message: "Movie added to favourite!" };
     } else {
       // Create a new watchlist doc with random ID
-      await addDoc(collection(db, "watchlists"), {
+      await addDoc(collection(db, "favourite"), {
         userId: userId,
         movies: [movie]
       });
-      return { success: true, message: "New watchlist created and movie added!" };
+      return { success: true, message: "New favourite list created and movie added!" };
     }
   } catch (error) {
     return { success: false, message: `Error: ${error.message}` };
   }
 };
 
-export const isMovieInWatchlist = async (userId, movieId) => {
+export const isMovieInFavourite = async (userId, movieId) => {
   try {
     // Fetch the user's watchlist
-    const q = query(collection(db, "watchlists"), where("userId", "==", userId));
+    const q = query(collection(db, "favourite"), where("userId", "==", userId));
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {

@@ -82,7 +82,17 @@ const SignIn_out = () => {
     }
 
 
-
+    const handleKeyDown = (e, currentField) => {
+        if (e.key === "ArrowDown") {
+          if (currentField === "fullName") email.current.focus();
+          else if (currentField === "email") password.current.focus();
+        
+        } else if (e.key === "ArrowUp") {
+          if (currentField === "password") email.current.focus();
+          else if (currentField === "email" && !isSignIn) fullName.current.focus();
+        }
+      };
+      
     return (
         <div
             className='flex flex-col min-h-screen justify-center items-center'
@@ -116,6 +126,7 @@ const SignIn_out = () => {
                         placeholder='Enter your full name'
                         className='border border-gray-300 bg-slate-400 px-6 placeholder:text-black w-full my-4 h-12 rounded-md'
                         ref={fullName}
+                        onKeyDown={(e) => handleKeyDown(e, "fullName")}
                     />
                 )}
 
@@ -124,6 +135,7 @@ const SignIn_out = () => {
                     placeholder='Enter your email'
                     className='border border-gray-300 bg-slate-400 w-full placeholder:text-black px-6 my-4 h-12 rounded-md'
                     ref={email}
+                    onKeyDown={(e) => handleKeyDown(e, "email")}
                 />
 
                 <input
@@ -131,11 +143,13 @@ const SignIn_out = () => {
                     placeholder={isSignIn ? 'Enter your password' : 'Create a password'}
                     className='border border-gray-300 px-6 bg-slate-400 w-full placeholder:text-black my-4 h-12 rounded-md'
                     ref={password}
+                    onKeyDown={(e) => handleKeyDown(e, "password")}
                 />
 
                 <p className="text-red-500 text-center">{error}</p>
 
                 <button
+                  
                     className="w-full bg-blue-500 text-white p-2 rounded my-4 h-12 mb-2"
                     onClick={!isSignIn ? handleSignUp : handleSignIn}
                 >

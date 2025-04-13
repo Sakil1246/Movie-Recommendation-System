@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import {  useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 import useTrailerNowPlaying from '../hooks/useTrailerNowPlaying'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { IMG_URL } from '../utils/constants'
 import { genreMap } from '../utils/mockData'
 import useCastCrew from '../hooks/useCastCrew'
 import { motion } from 'framer-motion'
-import { saveWatchlist } from '../utils/savedWatchlist'
+import { isMovieInWatchlist, saveWatchlist } from '../utils/savedWatchlist'
 import { FaSave } from 'react-icons/fa';
+import { isMovieInFavourite, saveFavourite } from '../utils/savedFavourite'
 
 
 const MovieDetails = ({ details }) => {
@@ -16,7 +16,7 @@ const MovieDetails = ({ details }) => {
   const { cast, crew } = useCastCrew({ movieId: details.id });
   const [isRate, setIsRate] = useState(false);
   const [list, setList] = useState(false);
- 
+  const [isFavourited, setIsFavourited] = useState(false);
   const { uid } = useSelector((store) => store.user);
   useTrailerNowPlaying({ id: details.id })
 
@@ -46,11 +46,36 @@ const MovieDetails = ({ details }) => {
 
     window.open(url, "_blank");
   }
-  const [isFavourited, setIsFavourited] = useState(false);
+ 
 
-  const handleFavourite = () => {
-    setIsFavourited(!isFavourited);
-  };
+  const handleFavourite = async () => {
+    const result = await saveFavourite(uid, details2);
+    if (result.success) {
+      setIsFavourited(true);
+      alert(result.message);
+    }
+    else {
+      alert(result.message);
+    }
+  }
+
+  const checkMovieInWatchlist = async () => {
+    const result = await isMovieInWatchlist(uid, details2.id);
+    result ? setList(true) : setList(false);
+
+  }
+
+  const checkMovieInFavourite = async () => {
+    const result = await isMovieInFavourite(uid, details2.id);
+    result ? setIsFavourited(true) : setIsFavourited(false);
+
+  }
+
+  useEffect(() => {
+    checkMovieInWatchlist();
+    checkMovieInFavourite();
+  }, [details2.id])
+
   return (
     <div className='bg-black min-h-screen px-4 py-8'>
       <div className='w-full'>
@@ -103,10 +128,17 @@ const MovieDetails = ({ details }) => {
               className='text-5xl text-white mb-1'
               onClick={savedList}
             >
-              {!list ? "＋" : "✔"}
+              {!list ? (
+                "＋"
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="#ffffff" viewBox="0 0 24 24">
+                  <path d="M20.285 6.709a1 1 0 0 0-1.414-1.418L9 15.162l-3.871-3.87a1 1 0 0 0-1.414 1.414l4.578 4.577a1 1 0 0 0 1.414 0l10.578-10.574z" />
+                </svg>
+              )}
             </motion.button>
-            <span className='text-white text-xl'>{!list ? "List" : "Added to List"}</span>
+            <span className='text-white text-xl'>{!list ? "List" : "Listed"}</span>
           </div>
+
 
 
           <div className='flex flex-col items-center'>
@@ -141,10 +173,16 @@ const MovieDetails = ({ details }) => {
               className='text-4xl text-white'
               onClick={handleFavourite}
             >
-             {isFavourited ? '♥' : '❤️'}
+              {!isFavourited ? (
+                "♥"
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="#ffffff" viewBox="0 0 24 24">
+                  <path d="M20.285 6.709a1 1 0 0 0-1.414-1.418L9 15.162l-3.871-3.87a1 1 0 0 0-1.414 1.414l4.578 4.577a1 1 0 0 0 1.414 0l10.578-10.574z" />
+                </svg>
+              )}
 
             </motion.button>
-            <span className='text-white text-xl mt-1'>Save</span>
+            <span className='text-white text-xl mt-1'>{!isFavourited?"Save":"Saved"}</span>
           </div>
         </div>
 

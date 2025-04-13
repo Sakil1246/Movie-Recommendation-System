@@ -13,6 +13,7 @@ import WatchList from './components/WatchList'
 import Tertiary from './components/Tertiary'
 import ScrollToTop from './components/ScrollToTop'
 import { removeSearch } from './utils/searchSlice'
+import FavouriteMovies from './components/FavouriteMovies'
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
@@ -59,6 +60,7 @@ const App = () => {
             <Route path="/body" element={<Body />} />
             <Route path="/tertiary/:id" element={<Tertiary />} />
             <Route path="/watchlist/:id" element={<WatchList/>} />
+            <Route path="/favourite/:id" element={<FavouriteMovies/>} />
             {/* <Route path="/tertiary/:id" element={<Tertiary/>}/> */}
             
           </Routes>
