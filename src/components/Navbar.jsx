@@ -151,9 +151,9 @@ const Navbar = () => {
               onMouseLeave={() => setIsVisible(false)}
             >
               <ul className="py-2 flex flex-col ">
-                <li className="px-4 py-2 my-2 text-white hover:bg-white hover:text-black rounded-lg cursor-pointer">
+                {/* <li className="px-4 py-2 my-2 text-white hover:bg-white hover:text-black rounded-lg cursor-pointer">
                   Profile
-                </li>
+                </li> */}
                 <li
                   className="px-4 py-2 my-2 text-white hover:bg-white hover:text-black rounded-lg cursor-pointer"
                   onClick={handleWatchList}

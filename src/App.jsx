@@ -11,7 +11,7 @@ import { removeFavourite, removeFavouriteId, removeNowPlaying, removePopular, re
 import MovieDetails from './components/MovieDetails'
 import WatchList from './components/WatchList'
 import Tertiary from './components/Tertiary'
-import ScrollToTop from './components/ScrollToTop'
+import ScrollToTop from './components/ScrollTop'
 import { removeSearch } from './utils/searchSlice'
 import FavouriteMovies from './components/FavouriteMovies'
 const App = () => {

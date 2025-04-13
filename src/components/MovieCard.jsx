@@ -32,10 +32,10 @@ const MovieCard = ({ path, details }) => {
 <AnimatePresence>
   {isHovered && (
     <motion.div
-      initial={{ opacity: 0, scale: 1.0, y: 10 }}  // Set scale to 1 to keep original size
-      animate={{ opacity: 1, scale: 1.1, y: 10 }}  // Keep scale as 1, adjust y for positioning
-      exit={{ opacity: 0, scale: 1, y: 10 }}  // Same as above to avoid scaling on exit
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      initial={{ opacity: 0, scale: 1.1, y: 10 }}  // Set scale to 1 to keep original size
+      animate={{ opacity: 1, scale: 1.3, y: 10 }}  // Keep scale as 1, adjust y for positioning
+      exit={{ opacity: 0, scale: 1, y: 8 }}  // Same as above to avoid scaling on exit
+      transition={{ duration: 0.5, ease: "easeOut" }}
       className="absolute top-0 left-0 z-50 w-fit bg-transparent text-white p-0 rounded-md shadow-lg"
     >
       <div className="relative w-64">

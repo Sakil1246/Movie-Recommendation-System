@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { useSearchByTittle } from '../hooks/useSearchByTittle'
 import MovieCard from './MovieCard'
-import ShimmerCard from './ShimmerCard'
+import ShimmerCard from './Shimmer'
 
 const SearchMovie = () => {
     const [result, setResult] = useState(null)

@@ -1,7 +1,7 @@
 import React from 'react'
 import useRecommendation from '../hooks/useRecommendation'
 import MovieCard from './MovieCard';
-import ShimmerCard from './ShimmerCard';
+import ShimmerCard from './Shimmer';
 
 const Recommendation = ({ id }) => {
 
