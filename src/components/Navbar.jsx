@@ -17,8 +17,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const Name = (user?.displayName || "").split(" ")[0];
-  useGetFavourite({userId: user.uid});
-  useGetWatchlist({userId: user.uid});
+  useGetFavourite({userId: user?.uid});
+  useGetWatchlist({userId: user?.uid});
   const wid = useSelector((store) => store.movies.watchlistId);
   const fid=useSelector((store)=>store.movies.favouriteId)
   const isSearch = useSelector((store) => store.isSearch);

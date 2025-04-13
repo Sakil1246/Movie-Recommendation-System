@@ -12,10 +12,10 @@ const FavouriteMovies = () => {
   const uid = user?.uid;
   useGetFavourite({ userId: uid });
   const getFavourite = useSelector((store) => store.movies?.favourite);
-
+  const fid=useSelector((store)=>store.movies.favouriteId);
   const navigate = useNavigate();
   const sharetoWhatsapp = () => {
-    const text = ` Check out my favourite movies on Cinemo!  https://cinemo-3bf9d.web.app/favourite/${uid}`;
+    const text = ` Check out my favourite movies on Cinemo!  https://cinemo-3bf9d.web.app/favourite/${fid}`;
     const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
 
     window.open(url, "_blank");
