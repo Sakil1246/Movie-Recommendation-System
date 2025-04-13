@@ -17,7 +17,7 @@ const Navbar = () => {
   const Name = (user?.displayName || "").split(" ")[0];
   
   const id = useSelector((store) => store.movies.watchlistId);
-  const isSearch = useSelector((store) => store.search?.searchMovie);
+  const isSearch = useSelector((store) => store.isSearch);
   
   const handleLogOut = () => {
     signOut(auth)

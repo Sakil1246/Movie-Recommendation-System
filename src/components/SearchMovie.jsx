@@ -19,6 +19,11 @@ const SearchMovie = () => {
                     placeholder='What do you want to watch today?'
                     ref={searchhere}
                     className=' py-2 pl-3 w-[260px] rounded-md placeholder:text-black text-black text-start'
+                    onKeyDown={(e)=>{
+                        if(e.key==="Enter"){
+                            handleSearch();
+                        }
+                    }}
                 />
                 <button className='text-white bg-red-600 ml-2 px-4 py-2 hover:bg-red-400 rounded-md' onClick={handleSearch} >
                     Search

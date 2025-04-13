@@ -13,6 +13,6 @@ const getUpcoming=async ()=>{
 }
 useEffect(()=>{
     getUpcoming();
-})
+},[])
 }
 export default useUpcoming;

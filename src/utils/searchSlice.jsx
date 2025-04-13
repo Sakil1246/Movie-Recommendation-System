@@ -1,16 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const searchSlice=createSlice({
-    name:"search",
-    initialState:{
-        searchMovie:false,
-    },
+    name:"isSearch",
+    initialState:false,
     reducers:{
         toggleSearch:(state,action)=>{
-            state.searchMovie=!(state.searchMovie);
+            return !state;
+        },
+        removeSearch:(state,acton)=>{
+            return false;
         }
     }
 })
 
-export const{toggleSearch }=searchSlice.actions;
+export const{toggleSearch,removeSearch }=searchSlice.actions;
 export default searchSlice.reducer;

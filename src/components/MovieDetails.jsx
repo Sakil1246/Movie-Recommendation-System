@@ -1,24 +1,23 @@
 import React, { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import {  useNavigate } from 'react-router-dom'
 import useTrailerNowPlaying from '../hooks/useTrailerNowPlaying'
 import { useDispatch, useSelector } from 'react-redux'
 import { IMG_URL } from '../utils/constants'
 import { genreMap } from '../utils/mockData'
 import useCastCrew from '../hooks/useCastCrew'
 import { motion } from 'framer-motion'
-import { addWatchlist } from '../utils/moviesSlice'
 import { saveWatchlist } from '../utils/savedWatchlist'
+import { FaSave } from 'react-icons/fa';
 
 
-const MovieDetails = ({details}) => {
+const MovieDetails = ({ details }) => {
   const [showTrailer, setShowTrailer] = useState(false)
-  
+
   const { cast, crew } = useCastCrew({ movieId: details.id });
   const [isRate, setIsRate] = useState(false);
   const [list, setList] = useState(false);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const {uid}=useSelector((store) => store.user);
+ 
+  const { uid } = useSelector((store) => store.user);
   useTrailerNowPlaying({ id: details.id })
 
   const trailer = useSelector((store) => store.movies?.trailer?.[details.id])
@@ -30,23 +29,28 @@ const MovieDetails = ({details}) => {
 
   const genres = details?.genre_ids?.map((id) => genreMap[id]);
   const details2 = details;
-  
-  const savedList=async()=>{
-    const result=await saveWatchlist(uid,details2);
-    if(result.success){
+
+  const savedList = async () => {
+    const result = await saveWatchlist(uid, details2);
+    if (result.success) {
       setList(true);
       alert(result.message);
     }
-    else{
+    else {
       alert(result.message);
     }
   }
-  const sharetoWhatsapp=()=>{
+  const sharetoWhatsapp = () => {
     const text = `🎬 Check out "${details2.title}" on Cinemo! 🔗 https://yourwebsite.com/movie/${details2.id}`;
     const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
-  
+
     window.open(url, "_blank");
   }
+  const [isFavourited, setIsFavourited] = useState(false);
+
+  const handleFavourite = () => {
+    setIsFavourited(!isFavourited);
+  };
   return (
     <div className='bg-black min-h-screen px-4 py-8'>
       <div className='w-full'>
@@ -99,11 +103,11 @@ const MovieDetails = ({details}) => {
               className='text-5xl text-white mb-1'
               onClick={savedList}
             >
-              {!list ?"＋" : "✔"}
+              {!list ? "＋" : "✔"}
             </motion.button>
             <span className='text-white text-xl'>{!list ? "List" : "Added to List"}</span>
           </div>
-            
+
 
           <div className='flex flex-col items-center'>
             <motion.div
@@ -129,6 +133,18 @@ const MovieDetails = ({details}) => {
               ➤
             </motion.button>
             <span className='text-white text-xl mt-1' >Share</span>
+          </div>
+          <div className='flex flex-col items-center'>
+            <motion.button
+              whileTap={{ scale: 1.3 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className='text-4xl text-white'
+              onClick={handleFavourite}
+            >
+             {isFavourited ? '♥' : '❤️'}
+
+            </motion.button>
+            <span className='text-white text-xl mt-1'>Save</span>
           </div>
         </div>
 

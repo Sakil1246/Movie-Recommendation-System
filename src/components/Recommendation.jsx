@@ -23,7 +23,7 @@ const Recommendation = ({ id }) => {
         </div>)}
         {recom?.length==0 &&(
           <div className='mt-4 '>
-            <h1 className='text-white text-3xl font-semibold'>No recommendation found</h1>
+            <h1 className='text-white text-3xl font-semibold'>No similar movies found</h1>
           </div>
         )
 

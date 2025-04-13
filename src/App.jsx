@@ -11,6 +11,8 @@ import { removeNowPlaying, removePopular, removeTopRated, removeTrailer, removeU
 import MovieDetails from './components/MovieDetails'
 import WatchList from './components/WatchList'
 import Tertiary from './components/Tertiary'
+import ScrollToTop from './components/ScrollToTop'
+import { removeSearch } from './utils/searchSlice'
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
@@ -38,6 +40,7 @@ const App = () => {
         dispatch(removeUpcoming());
         dispatch(removeWatchlist());
         dispatch(removeWatchlistId());
+        dispatch(removeSearch());
         persistor.purge();
 
       }
@@ -49,7 +52,7 @@ const App = () => {
   return (
     <div>
         <BrowserRouter>
-        
+        <ScrollToTop/>
           <Routes>
             <Route path="/" element={<SignIn_out />} />
             

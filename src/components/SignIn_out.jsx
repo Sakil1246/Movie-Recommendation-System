@@ -93,7 +93,11 @@ const SignIn_out = () => {
             }}
         >
             <h1 className='absolute top-10 text-red-500 text-6xl font-extrabold'>CiNemO</h1>
-
+            <form 
+             onSubmit={(e) => {
+                e.preventDefault(); // prevent page reload
+                !isSignIn ? handleSignUp() : handleSignIn();
+              }}>
             <motion.div
                 key={isSignIn ? 'signIn' : 'signUp'}
                 initial={{ rotateY: 180, opacity: 0 }}
@@ -148,6 +152,7 @@ const SignIn_out = () => {
                     </span>
                 </p>
             </motion.div>
+            </form>
         </div>
     );
 

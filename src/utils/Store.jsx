@@ -16,7 +16,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   user: userReducer,
   movies: movieReducer,
-  search: searchReducer,
+  isSearch: searchReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
