@@ -16,7 +16,7 @@ const WatchList = () => {
 
   const navigate = useNavigate();
   const sharetoWhatsapp = () => {
-    const text = `🎬 Check out my watchlist on Cinemo! 🔗 https://cinemo.com/movie/watchlist/${uid}`;
+    const text = ` Check out my watchlist on Cinemo!  https://cinemo-3bf9d.web.app/watchlist/${uid}`;
     const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
 
     window.open(url, "_blank");
