@@ -1,11 +1,11 @@
 import React from 'react';
-import WatchListMovie from './WatchListMovie';
 import { useSelector } from 'react-redux';
 import Navbar from './Navbar';
 import { useNavigate } from 'react-router-dom';
 import { W_LOGO } from '../utils/constants';
 import SearchMovie from './SearchMovie';
 import useGetWatchlist from '../hooks/useGetWatchlist';
+import RecomMovieCard from './RecomMovieCard';
 
 const WatchList = () => {
   const user = useSelector((store) => store.user);
@@ -42,7 +42,7 @@ const wid=useSelector((store)=>store.movies.watchlistId);
               <div className="grid grid-cols-2 sm:grid-cols-3  md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 ">
                 {getWatchlist?.map((movie) => (
                   <div key={movie.id} className="w-full h-full ">
-                    <WatchListMovie path={movie.poster_path} details={movie} />
+                    <RecomMovieCard path={movie.poster_path} details={movie} />
                   </div>
                 ))}
               </div>
