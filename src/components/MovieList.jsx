@@ -1,16 +1,17 @@
 import React from 'react';
 import HomeMovieCard from './HomeMovieCard';
 import { motion } from 'framer-motion';
+import ShimmerCard from './Shimmer';
 
 const MovieList = ({ list, tittle }) => {
   return (
     <div className="px-4 w-full relative z-10">
-      <h1 className="text-3xl py-4 font-bold text-orange-400 sticky top-0 w-fit h-fit rounded-xl bg-black ml-6 z-20">
+      <h1 className="text-3xl py-4 font-bold text-white sticky top-0 w-fit h-fit rounded-xl bg-black ml-6 z-20">
         {tittle}
       </h1>
 
-      <div className="flex space-x-4 overflow-x-auto scrollbar-hide overflow-visible relative z-10">
-        {list?.map((movie) => (
+      <div className="flex space-x-4 overflow-x-auto scrollbar-hide overflow-visible pb-10 relative z-10">
+      {list?.map((movie) => (
           <motion.div
             key={movie.id}
             className="flex flex-col items-center justify-start bg-[#0F0F24] w-64 p-3 rounded-2xl shadow-md"

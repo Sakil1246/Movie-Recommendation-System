@@ -54,7 +54,7 @@ const Navbar = () => {
         {!isSearch && (
 
           <button
-            className="text-orange-400 hover:bg-gray-700 bg-gray-800 cursor-pointer px-4 py-2 rounded-lg font-bold text-2xl"
+            className="text-orange-400 hover:bg-gray-700  cursor-pointer px-4 py-2 rounded-lg font-bold text-2xl"
             onClick={() => navigate("/body")}
           >
             CiNeMo </button>
