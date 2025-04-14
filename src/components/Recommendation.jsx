@@ -1,7 +1,7 @@
 import React from 'react'
 import useRecommendation from '../hooks/useRecommendation'
-import MovieCard from './MovieCard';
 import ShimmerCard from './Shimmer';
+import RecomMovieCard from './RecomMovieCard';
 
 const Recommendation = ({ id }) => {
 
@@ -17,7 +17,7 @@ const Recommendation = ({ id }) => {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 ">
             {recom?.map((movie) => (
               <div key={movie.id} className="flex-shrink-0 w-48">
-                <MovieCard path={movie.poster_path} details={movie} />
+                <RecomMovieCard path={movie.poster_path} details={movie} />
               </div>
             ))}
           </div>

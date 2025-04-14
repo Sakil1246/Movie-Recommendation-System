@@ -11,6 +11,7 @@ import Footer from './Footer'
 import useGetWatchlist from '../hooks/useGetWatchlist'
 import { useSelector } from 'react-redux'
 import SearchMovie from './SearchMovie'
+import useTrendingMovies from '../hooks/useTrendingMovies'
 
 const Body = () => {
   const uid = useSelector((store) => store.user?.uid);
@@ -20,6 +21,7 @@ const Body = () => {
   usePopular();
   useTopRated();
   useUpcoming();
+  useTrendingMovies();
  
 
   return (

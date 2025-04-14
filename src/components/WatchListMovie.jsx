@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { IMG_URL } from '../utils/constants';
 import { useNavigate } from 'react-router-dom';
 import { genreMap } from '../utils/mockData';
 import { useSelector } from 'react-redux';
+import { POSTER_URL } from '../utils/constants';
 
 
 
@@ -25,7 +25,7 @@ const WatchListMovie = ({ path, details }) => {
       <img
         alt={details?.title}
         className="w-full h-3/4 object-cover rounded-t-md"
-        src={IMG_URL + path}
+        src={POSTER_URL + path}
       />
 
       <div className="flex-1 flex flex-col justify-between p-4 bg-slate-900 rounded-b-md">

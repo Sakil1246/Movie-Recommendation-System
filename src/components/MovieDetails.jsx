@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import useTrailerNowPlaying from '../hooks/useTrailerNowPlaying'
 import { useSelector } from 'react-redux'
-import { IMG_URL } from '../utils/constants'
+import {  POSTER_URL } from '../utils/constants'
 import { genreMap } from '../utils/mockData'
 import useCastCrew from '../hooks/useCastCrew'
 import { motion } from 'framer-motion'
@@ -95,13 +95,13 @@ const MovieDetails = ({ details }) => {
             <div
               className="absolute inset-0 bg-cover h-[600px] bg-center blur-md brightness-50 scale-100"
               style={{
-                backgroundImage: `url(${IMG_URL + details.poster_path})`,
+                backgroundImage: `url(${POSTER_URL + details.poster_path})`,
               }}
             />
             <img
               alt="Movie card"
               className="relative  w-1/4 h-auto mx-auto aspect-auto object-cover rounded-md shadow-xl"
-              src={IMG_URL + details.poster_path}
+              src={POSTER_URL + details.poster_path}
             />
           </div>
 
