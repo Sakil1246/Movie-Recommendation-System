@@ -56,12 +56,6 @@ npm install
 npm run dev
 ```
 
-4️⃣ Build for production:
-
-```bash
-npm run build
-```
-
 ---
 
 ## ✨ Features
@@ -75,24 +69,13 @@ npm run build
 
 ---
 
-## 📦 Deployment
-
-Cinemo is deployed using [Firebase Hosting](https://firebase.google.com/products/hosting). Simply run:
-
-```bash
-npm run build
-firebase deploy
-```
-
----
-
 ## 🤝 Contributing
 
 We’d love your help in improving **Cinemo**!  
 Whether it's UI tweaks, feature enhancements, or performance improvements — contributions are welcome.
 
 📢 **Feel free to contribute to make this project even better!**  
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/your-username/your-repo)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/Sakil1246/Movie-Recommendation-System.git)
 
 ---
 
