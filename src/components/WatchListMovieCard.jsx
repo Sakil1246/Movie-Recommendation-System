@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { genreMap } from '../utils/mockData';
 import { motion, AnimatePresence } from "framer-motion";
 
-const RecomMovieCard = ({ path, details }) => {
+const WatchListMovieCard = ({ path, details }) => {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
   const { id } = details;
@@ -45,7 +45,7 @@ const RecomMovieCard = ({ path, details }) => {
                 className="w-full h-auto object-contain"
               />
 
-             
+              
               <div className="absolute bottom-0 w-full p-4 bg-zinc-700 bg-opacity-85 rounded-lg">
                 <h2 className="text-lg font-bold shadow-2xl text-white truncate">
                   {details?.title || details?.original_title}
@@ -64,7 +64,7 @@ const RecomMovieCard = ({ path, details }) => {
                   <button className="bg-white text-black px-4 py-1 rounded hover:bg-gray-200 flex items-center">
                     ▶ Play
                   </button>
-                  <button className="bg-gray-900 px-3 py-1 rounded">＋</button>
+                  
                 </div>
               </div>
 
@@ -77,4 +77,4 @@ const RecomMovieCard = ({ path, details }) => {
   );
 };
 
-export default RecomMovieCard;
+export default WatchListMovieCard;

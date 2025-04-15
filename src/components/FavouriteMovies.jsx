@@ -1,11 +1,11 @@
 import React from 'react';
-import WatchListMovie from './WatchListMovie';
 import { useSelector } from 'react-redux';
 import Navbar from './Navbar';
 import { useNavigate } from 'react-router-dom';
 import { W_LOGO } from '../utils/constants';
 import SearchMovie from './SearchMovie';
 import useGetFavourite from '../hooks/useGetFavourite';
+import RecomMovieCard from './RecomMovieCard';
 
 const FavouriteMovies = () => {
   const user = useSelector((store) => store.user);
@@ -29,19 +29,19 @@ const FavouriteMovies = () => {
         <>
           {(getFavourite?.length === 0 || getFavourite===null) && (
             <div className="flex  items-center justify-center min-h-[80vh] mt-16">
-              <h1 className="text-3xl text-center font-bold  text-orange-400">
-                Oooh!! Don't you have favourite movie??
+              <h1 className="text-3xl text-center font-bold  text-white">
+                Oooh!! Don't you have any favourite movie??
               </h1>
             </div>
           )}
 
           {(getFavourite?.length !== 0 && getFavourite!==null) && (
             <div className="px-4 mt-16 ">
-              <h1 className="text-3xl ml-3 py-4  text-center font-bold text-orange-400">My Favourite</h1>
+              <h1 className="text-3xl ml-3 py-4  text-center font-bold text-white">My Favourite</h1>
               <div className="grid grid-cols-2 sm:grid-cols-3  md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 ">
                 {getFavourite?.map((movie) => (
                   <div key={movie.id} className="w-full h-full ">
-                    <WatchListMovie path={movie.poster_path} details={movie} />
+                    <RecomMovieCard path={movie.poster_path} details={movie} />
                   </div>
                 ))}
               </div>
