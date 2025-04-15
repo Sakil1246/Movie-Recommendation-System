@@ -1,15 +1,32 @@
-import React from 'react'
+import React from 'react';
+import { FaGithub } from 'react-icons/fa'; 
 
 const Footer = () => {
   return (
-    <div className='bg-black text-white  text-center border-t-2 relative mt-20 z-10'>
-      {/* <h1 className='text-3xl font-bold text-orange-400'>Cinemo </h1> */}
-      <p className='text-sm mt-20'>© 2025 Movie App. All rights reserved.</p>
-      <p className='text-sm mt-2'>Developed by Sakil Ahmed</p>
+    <footer className="bg-black text-white border-t-2 py-6 px-4 relative z-10">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+       
+        <div className="text-center md:text-left">
+          <p className="text-sm">© 2025 Movie App. All rights reserved.</p>
+          <p className="text-sm">Developed by Sakil Ahmed</p>
+        </div>
 
-      
-    </div>
-  )
-}
+       
+        <div className="flex items-center gap-2 text-sm">
+          <a
+            href="https://github.com/Sakil1246/Movie-Recommendation-System.git" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white hover:text-gray-400 transition-colors"
+          >
+            <FaGithub size={20} />
+          </a>
+          <span>Help us make it better — contributions welcome!</span>
 
-export default Footer
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
