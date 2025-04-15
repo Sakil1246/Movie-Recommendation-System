@@ -1,7 +1,7 @@
 import React from 'react'
 
 const validation = (email,password,fullName) => {
-    const isPassword = /^[A-Za-z\d]{5,}$/.test(password);
+  const isPassword = /^[a-zA-Z0-9]{4,}$/.test(password);
 
   const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
  

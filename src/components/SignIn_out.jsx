@@ -25,42 +25,39 @@ const SignIn_out = () => {
 
     const handleSignUp = () => {
         const message = validation(email.current.value, password.current.value, fullName.current.value);
-        // console.log(email.current.value);
         setError(message);
         if (message) return;
+      
         createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
-            .then((userCredential) => {
-                // Signed up 
-                const user = userCredential.user;
-                // ...
-                //console.log(user);
-                updateProfile(auth.currentUser, {
-                    displayName: fullName.current.value, photoURL: "https://example.com/jane-q-user/profile.jpg"
-                }).then(() => {
-                    // Profile updated!
-                    // ...
-                    const { uid, email, displayName } = auth.currentUser;
-                    //console.log(uid, email, displayName);
-                    dispatch(addUser({
-                        uid: uid,
-                        email: email,
-                        displayName: displayName
-                    }
-                    ));
-                }).catch((error) => {
-                    // An error occurred
-                    // ...
-                });
-
-                navigate("/body");
+          .then((userCredential) => {
+            const user = userCredential.user;
+      
+            updateProfile(user, {
+              displayName: fullName.current.value
             })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // ..
-                setError(errorCode + ": " + errorMessage);
-            });
-    }
+              .then(() => {
+                // Now displayName is updated
+                const { uid, email, displayName } = auth.currentUser;
+                dispatch(addUser({
+                  uid,
+                  email,
+                  displayName
+                }));
+      
+                // Move navigation here
+                navigate("/body");
+              })
+              .catch((error) => {
+                setError("Profile update failed: " + error.message);
+              });
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            setError(errorCode + ": " + errorMessage);
+          });
+      };
+      
     const handleSignIn = () => {
 
         signInWithEmailAndPassword(auth, email.current.value, password.current.value)
