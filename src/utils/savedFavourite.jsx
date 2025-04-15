@@ -1,26 +1,26 @@
-import { collection, addDoc, query, where, getDocs, updateDoc, arrayUnion } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db } from "./firebase";
 
-export const saveFavourite = async (userId, movie) => {
+export const toggleFavourite = async (userId, movie, isFavourited) => {
   try {
-    // Check if this user already has a watchlist
     const q = query(collection(db, "favourite"), where("userId", "==", userId));
     const querySnapshot = await getDocs(q);
 
     if (!querySnapshot.empty) {
-      // Update the first watchlist found
       const docRef = querySnapshot.docs[0].ref;
       await updateDoc(docRef, {
-        movies: arrayUnion(movie)
+        movies: isFavourited ? arrayRemove(movie) : arrayUnion(movie),
       });
-      return { success: true, message: "Movie added to favourite!" };
-    } else {
-      // Create a new watchlist doc with random ID
+      return {
+        success: true,
+        message: isFavourited ? "Movie removed from favourites!" : "Movie added to favourites!",
+      };
+    } else if (!isFavourited) {
       await addDoc(collection(db, "favourite"), {
         userId: userId,
-        movies: [movie]
+        movies: [movie],
       });
-      return { success: true, message: "New favourite list created and movie added!" };
+      return { success: true, message: "Favourites created and movie added!" };
     }
   } catch (error) {
     return { success: false, message: `Error: ${error.message}` };

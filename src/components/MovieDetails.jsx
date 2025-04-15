@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import useTrailerNowPlaying from '../hooks/useTrailerNowPlaying'
 import { useSelector } from 'react-redux'
-import {  POSTER_URL } from '../utils/constants'
+import { POSTER_URL } from '../utils/constants'
 import { genreMap } from '../utils/mockData'
 import useCastCrew from '../hooks/useCastCrew'
 import { motion } from 'framer-motion'
-import { isMovieInWatchlist, saveWatchlist } from '../utils/savedWatchlist'
-import { isMovieInFavourite, saveFavourite } from '../utils/savedFavourite'
+import { isMovieInWatchlist, toggleWatchlist } from '../utils/savedWatchlist'
+import { isMovieInFavourite, toggleFavourite } from '../utils/savedFavourite'
+import ToastMessage from '../utils/Toast'
 
 
 const MovieDetails = ({ details }) => {
@@ -17,6 +18,16 @@ const MovieDetails = ({ details }) => {
   const [list, setList] = useState(false);
   const [isFavourited, setIsFavourited] = useState(false);
   const { uid } = useSelector((store) => store.user);
+  const [toast, setToast] = useState({ visible: false, message: '', type: 'success' });
+
+  const showToast = (message, type = 'success') => {
+    setToast({ visible: true, message, type });
+    setTimeout(() => {
+      setToast(prev => ({ ...prev, visible: false }));
+    }, 3000);
+  };
+
+
   useTrailerNowPlaying({ id: details.id })
 
   const trailer = useSelector((store) => store.movies?.trailer?.[details.id])
@@ -30,33 +41,34 @@ const MovieDetails = ({ details }) => {
   const details2 = details;
 
   const savedList = async () => {
-    const result = await saveWatchlist(uid, details2);
+    const result = await toggleWatchlist(uid, details2, list);
     if (result.success) {
-      setList(true);
-      alert(result.message);
+      setList((prev) => !prev);
+      showToast(result.message, 'success');
+    } else {
+      showToast(result.message, 'error');
     }
-    else {
-      alert(result.message);
+  };
+
+  const handleFavourite = async () => {
+    const result = await toggleFavourite(uid, details2, isFavourited);
+    if (result.success) {
+      setIsFavourited((prev) => !prev);
+      showToast(result.message, 'success');
+    } else {
+      showToast(result.message, 'error');
     }
-  }
+  };
+
   const sharetoWhatsapp = () => {
     const text = `🎬 Check out "${details2.title}" on Cinemo! 🔗 https://yourwebsite.com/movie/${details2.id}`;
     const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
 
     window.open(url, "_blank");
   }
- 
 
-  const handleFavourite = async () => {
-    const result = await saveFavourite(uid, details2);
-    if (result.success) {
-      setIsFavourited(true);
-      alert(result.message);
-    }
-    else {
-      alert(result.message);
-    }
-  }
+
+
 
   const checkMovieInWatchlist = async () => {
     const result = await isMovieInWatchlist(uid, details2.id);
@@ -181,7 +193,7 @@ const MovieDetails = ({ details }) => {
               )}
 
             </motion.button>
-            <span className='text-white text-xl mt-1'>{!isFavourited?"Save":"Saved"}</span>
+            <span className='text-white text-xl mt-1'>{!isFavourited ? "Save" : "Saved"}</span>
           </div>
         </div>
 
@@ -212,6 +224,13 @@ const MovieDetails = ({ details }) => {
           </div>
         </div>
       </div>
+      <div className='relative z-50 bg-slate-50 '>
+      <ToastMessage 
+  message={toast.message}
+  type={toast.type}
+  visible={toast.visible}
+/>
+</div>
     </div>
   )
 }

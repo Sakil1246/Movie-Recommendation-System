@@ -7,7 +7,7 @@ const Recommendation = ({ id }) => {
 
 
   const recom = useRecommendation({ id: id });
-  console.log(recom);
+  //console.log(recom);
   return (
     <div className="px-4 z-10 w-full relative overflow-visible">
       {/* <h1 className="text-3xl py-4 font-bold text-orange-400 ">{tittle}</h1> */}
