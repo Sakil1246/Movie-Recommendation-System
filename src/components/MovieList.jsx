@@ -1,7 +1,6 @@
 import React from 'react';
 import HomeMovieCard from './HomeMovieCard';
 import { motion } from 'framer-motion';
-import ShimmerCard from './Shimmer';
 
 const MovieList = ({ list, tittle }) => {
   return (

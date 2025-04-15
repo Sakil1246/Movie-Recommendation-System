@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import MovieList from './MovieList';
 import ShimmerCard from './Shimmer';
+import TrendingMovieList from './TrendingMovieList';
 
 const Secondary = () => {
 
@@ -15,7 +16,7 @@ const Secondary = () => {
 
     {(nowPlaying || popular || topRated || upcoming)&&(  <div className=' mt-0 md:-mt-52 pl-4 md:pl-12 relative z-20'>
         <div className=' relative z-0'>
-        <MovieList list={trending} tittle={"Trending Movies"} />
+        <TrendingMovieList list={trending} tittle={"Trending Movies"} />
 
         <MovieList list={nowPlaying} tittle={"Now Playing"} />
         <MovieList list={popular} tittle={"Popular Movies"} />
