@@ -5,7 +5,6 @@ import { genreMap } from '../utils/mockData';
 import { motion } from "framer-motion";
 
 const HomeMovieCard = ({ path, details }) => {
-  const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
   const { id } = details;
   const genres = details?.genre_ids?.map((id) => genreMap[id]);
@@ -17,8 +16,6 @@ const HomeMovieCard = ({ path, details }) => {
   return (
     <motion.div
       className="group cursor-pointer relative w-56"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       onClick={movieInfo}
       whileHover={{
         scale: 1.05,
