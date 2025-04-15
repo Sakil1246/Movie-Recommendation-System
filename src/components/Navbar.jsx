@@ -83,7 +83,7 @@ const Navbar = () => {
  
   {menuOpen && !isSearch && (
     <div className="w-full md:hidden mt-2 bg-black p-4 text-white space-y-2">
-      <Link to="/" className="block text-center py-2 hover:bg-gray-700" onClick={() => setMenuOpen(false)}>Home</Link>
+      <Link to="/body" className="block text-center py-2 hover:bg-gray-700" onClick={() => setMenuOpen(false)}>Home</Link>
       <Link to="/about" className="block text-center py-2 hover:bg-gray-700" onClick={() => setMenuOpen(false)}>About</Link>
       <Link to="/contact" className="block text-center py-2 hover:bg-gray-700" onClick={() => setMenuOpen(false)}>Contact</Link>
     </div>

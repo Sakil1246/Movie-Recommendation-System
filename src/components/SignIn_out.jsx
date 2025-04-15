@@ -13,159 +13,159 @@ import { motion } from 'framer-motion';
 const SignIn_out = () => {
 
 
-    const [isSignIn, setIsSignIn] = useState(true);
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [error, setError] = useState("");
+  const [isSignIn, setIsSignIn] = useState(true);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
 
-    const fullName = useRef(null);
-    const email = useRef(null);
-    const password = useRef(null);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+  const fullName = useRef(null);
+  const email = useRef(null);
+  const password = useRef(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    const handleSignUp = () => {
-        const message = validation(email.current.value, password.current.value, fullName.current.value);
-        setError(message);
-        if (message) return;
-      
-        createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
-          .then((userCredential) => {
-            const user = userCredential.user;
-      
-            updateProfile(user, {
-              displayName: fullName.current.value
-            })
-              .then(() => {
-                // Now displayName is updated
-                const { uid, email, displayName } = auth.currentUser;
-                dispatch(addUser({
-                  uid,
-                  email,
-                  displayName
-                }));
-      
-                // Move navigation here
-                navigate("/body");
-              })
-              .catch((error) => {
-                setError("Profile update failed: " + error.message);
-              });
+  const handleSignUp = () => {
+    const message = validation(email.current.value, password.current.value, fullName.current.value);
+    setError(message);
+    if (message) return;
+
+    createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+      .then((userCredential) => {
+        const user = userCredential.user;
+
+        updateProfile(user, {
+          displayName: fullName.current.value
+        })
+          .then(() => {
+            // Now displayName is updated
+            const { uid, email, displayName } = auth.currentUser;
+            dispatch(addUser({
+              uid,
+              email,
+              displayName
+            }));
+
+            // Move navigation here
+            navigate("/body");
           })
           .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            setError(errorCode + ": " + errorMessage);
+            setError("Profile update failed: " + error.message);
           });
-      };
-      
-    const handleSignIn = () => {
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setError(errorCode + ": " + errorMessage);
+      });
+  };
 
-        signInWithEmailAndPassword(auth, email.current.value, password.current.value)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                //console.log(user);
-                // ...
-                //dispatch(addUser(user));
-                navigate("/body");
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                setError(errorCode + ": " + errorMessage);
-            });
+  const handleSignIn = () => {
+
+    signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        //console.log(user);
+        // ...
+        //dispatch(addUser(user));
+        navigate("/body");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setError(errorCode + ": " + errorMessage);
+      });
 
 
+  }
+
+
+  const handleKeyDown = (e, currentField) => {
+    if (e.key === "ArrowDown") {
+      if (currentField === "fullName") email.current.focus();
+      else if (currentField === "email") password.current.focus();
+
+    } else if (e.key === "ArrowUp") {
+      if (currentField === "password") email.current.focus();
+      else if (currentField === "email" && !isSignIn) fullName.current.focus();
     }
+  };
 
-
-    const handleKeyDown = (e, currentField) => {
-        if (e.key === "ArrowDown") {
-          if (currentField === "fullName") email.current.focus();
-          else if (currentField === "email") password.current.focus();
-        
-        } else if (e.key === "ArrowUp") {
-          if (currentField === "password") email.current.focus();
-          else if (currentField === "email" && !isSignIn) fullName.current.focus();
-        }
-      };
-      
-    return (
-        <div
-            className='flex flex-col min-h-screen justify-center items-center'
-            style={{
-                backgroundImage: `url(${bgUrl})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center'
-            }}
+  return (
+    <div
+      className='flex flex-col min-h-screen justify-center items-center'
+      style={{
+        backgroundImage: `url(${bgUrl})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
+    >
+      <h1 className='absolute top-10 text-red-500 text-6xl font-extrabold'>CiNemO</h1>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault(); // prevent page reload
+          !isSignIn ? handleSignUp() : handleSignIn();
+        }}>
+        <motion.div
+          key={isSignIn ? 'signIn' : 'signUp'}
+          initial={{ rotateY: 180, opacity: 0 }}
+          animate={{ rotateY: 0, opacity: 1 }}
+          exit={{ rotateY: -180, opacity: 0 }}
+          transition={{ duration: 0.6, ease: 'easeInOut' }}
+          className="bg-black shadow-lg bg-opacity-80 p-6 sm:p-8 md:p-10 w-80 sm:w-96 md:w-[420px] rounded-lg"
         >
-            <h1 className='absolute top-10 text-red-500 text-6xl font-extrabold'>CiNemO</h1>
-            <form 
-             onSubmit={(e) => {
-                e.preventDefault(); // prevent page reload
-                !isSignIn ? handleSignUp() : handleSignIn();
-              }}>
-            <motion.div
-                key={isSignIn ? 'signIn' : 'signUp'}
-                initial={{ rotateY: 180, opacity: 0 }}
-                animate={{ rotateY: 0, opacity: 1 }}
-                exit={{ rotateY: -180, opacity: 0 }}
-                transition={{ duration: 0.6, ease: 'easeInOut' }}
-                className='bg-black shadow-lg bg-opacity-80 p-10 w-96 rounded-lg'
+          <h2 className="justify-center text-center text-blue-500 font-bold text-2xl sm:text-3xl mb-2">
+            {isSignIn ? "Sign In" : "Sign Up"}
+          </h2>
+
+          {!isSignIn && (
+            <input
+              type="text"
+              placeholder="Enter your full name"
+              className="border border-gray-300 bg-slate-400 px-4 sm:px-6 placeholder:text-black w-full my-3 h-11 sm:h-12 rounded-md text-sm sm:text-base"
+              ref={fullName}
+              onKeyDown={(e) => handleKeyDown(e, "fullName")}
+            />
+          )}
+
+          <input
+            type="email"
+            placeholder="Enter your email"
+            className="border border-gray-300 bg-slate-400 px-4 sm:px-6 placeholder:text-black w-full my-3 h-11 sm:h-12 rounded-md text-sm sm:text-base"
+            ref={email}
+            onKeyDown={(e) => handleKeyDown(e, "email")}
+          />
+
+          <input
+            type="password"
+            placeholder={isSignIn ? "Enter your password" : "Create a password"}
+            className="border border-gray-300 px-4 sm:px-6 bg-slate-400 w-full placeholder:text-black my-3 h-11 sm:h-12 rounded-md text-sm sm:text-base"
+            ref={password}
+            onKeyDown={(e) => handleKeyDown(e, "password")}
+          />
+
+          <p className="text-red-500 text-center text-sm">{error}</p>
+
+          <button
+            className="w-full bg-blue-500 text-white p-2 sm:p-3 rounded my-4 h-11 sm:h-12 mb-2 text-sm sm:text-base"
+            onClick={!isSignIn ? handleSignUp : handleSignIn}
+          >
+            {!isSignIn ? "Sign Up" : "Sign In"}
+          </button>
+
+          <p className="text-slate-300 text-sm sm:text-base">
+            {!isSignIn ? "Already have an account? " : "New here? "}
+            <span
+              className="cursor-pointer text-white"
+              onClick={() => setIsSignIn(!isSignIn)}
             >
-                <h2 className='justify-center text-center text-blue-500 font-bold text-2xl'>
-                    {isSignIn ? "Sign In" : "Sign Up"}
-                </h2>
+              {isSignIn ? "Sign Up" : "Sign In here"}
+            </span>
+          </p>
+        </motion.div>
 
-                {!isSignIn && (
-                    <input
-                        type='text'
-                        placeholder='Enter your full name'
-                        className='border border-gray-300 bg-slate-400 px-6 placeholder:text-black w-full my-4 h-12 rounded-md'
-                        ref={fullName}
-                        onKeyDown={(e) => handleKeyDown(e, "fullName")}
-                    />
-                )}
-
-                <input
-                    type='email'
-                    placeholder='Enter your email'
-                    className='border border-gray-300 bg-slate-400 w-full placeholder:text-black px-6 my-4 h-12 rounded-md'
-                    ref={email}
-                    onKeyDown={(e) => handleKeyDown(e, "email")}
-                />
-
-                <input
-                    type='password'
-                    placeholder={isSignIn ? 'Enter your password' : 'Create a password'}
-                    className='border border-gray-300 px-6 bg-slate-400 w-full placeholder:text-black my-4 h-12 rounded-md'
-                    ref={password}
-                    onKeyDown={(e) => handleKeyDown(e, "password")}
-                />
-
-                <p className="text-red-500 text-center">{error}</p>
-
-                <button
-                  
-                    className="w-full bg-blue-500 text-white p-2 rounded my-4 h-12 mb-2"
-                    onClick={!isSignIn ? handleSignUp : handleSignIn}
-                >
-                    {!isSignIn ? "Sign Up" : "Sign In"}
-                </button>
-
-                <p className='text-slate-300'>
-                    {!isSignIn ? "Already have an account? " : "New here? "}
-                    <span
-                        className='cursor-pointer text-white'
-                        onClick={() => setIsSignIn(!isSignIn)}
-                    >
-                        {isSignIn ? "Sign Up" : "Sign In here"}
-                    </span>
-                </p>
-            </motion.div>
-            </form>
-        </div>
-    );
+      </form>
+    </div>
+  );
 
 
 }
