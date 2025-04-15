@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
-import useNowplaying from '../hooks/useNowplaying'
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import useNowplaying from '../hooks/useNowplaying';
+import { useSelector } from 'react-redux';
 import TitleNowPlaying from './TitleNowPlaying';
 import BgVideo from './BgVideo';
 
@@ -9,40 +9,35 @@ import 'swiper/css';
 import 'swiper/css/autoplay';
 import { Autoplay } from 'swiper/modules';
 
-
-
 const Primary = () => {
-
-
-
-
   const data = useSelector((store) => store.movies?.nowPlaying);
 
   return (
-    <div>
+    <div className="w-full h-full overflow-hidden">
       <Swiper
         spcaebetween={50}
         slidesPerView={1}
         autoplay={{ delay: 20000 }}
         modules={[Autoplay]}
-        className='max-w-full'
-        loop={true}>
+        className="w-full"
+        loop={true}
+      >
         {data?.map((movie, index) => {
           if (index === 5 || index === 14) return null;
           return (
             <SwiperSlide key={movie.id}>
-              <div className="max-w-full overflow-hidden pt-[30%] bg-black h-30 md:pt-0">
-                <TitleNowPlaying title={movie.original_title} overview={movie.overview} details={movie} />
-                <BgVideo id={movie.id} detail={movie} />
+              <div className="w-full h-screen bg-black relative md:h-screen sm:h-auto sm:pt-[56.25%]">
+                <div className="absolute top-0 left-0 w-full h-full">
+                  <TitleNowPlaying title={movie.original_title} overview={movie.overview} details={movie} />
+                  <BgVideo id={movie.id} detail={movie} />
+                </div>
               </div>
             </SwiperSlide>
           );
         })}
-  
-
       </Swiper>
     </div>
-  )
-}
+  );
+};
 
-export default Primary
+export default Primary;
