@@ -64,7 +64,7 @@ const RecomMovieCard = ({ path, details }) => {
                   <button className="bg-white text-black px-4 py-1 rounded hover:bg-gray-200 flex items-center">
                     ▶ Play
                   </button>
-                  <button className="bg-gray-900 px-3 py-1 rounded">＋</button>
+                  <button className="bg-gray-200 text-black font-bold px-3 py-1 rounded">＋</button>
                 </div>
               </div>
 
