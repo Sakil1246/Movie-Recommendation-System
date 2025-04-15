@@ -6,7 +6,6 @@ import { genreMap } from '../utils/mockData'
 import useCastCrew from '../hooks/useCastCrew'
 import { motion } from 'framer-motion'
 import { isMovieInWatchlist, saveWatchlist } from '../utils/savedWatchlist'
-import { FaSave } from 'react-icons/fa';
 import { isMovieInFavourite, saveFavourite } from '../utils/savedFavourite'
 
 

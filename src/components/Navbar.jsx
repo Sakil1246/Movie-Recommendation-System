@@ -60,7 +60,7 @@ const Navbar = () => {
             CiNeMo </button>
         )}
       </div>
-      <div className=''>
+      <div className='ml-36 '>
         {!isSearch && (
           <>
             <div className="hidden md:flex text-white items-center   gap-16 justify-center w-full">
