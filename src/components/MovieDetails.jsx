@@ -61,7 +61,7 @@ const MovieDetails = ({ details }) => {
   };
 
   const sharetoWhatsapp = () => {
-    const text = `🎬 Check out "${details2.title}" on Cinemo! 🔗 https://yourwebsite.com/movie/${details2.id}`;
+    const text = `🎬 Check out "${details2.title}" on Cinemo! 🔗 https://cinemo-3bf9d.web.app/movie/${details2.id}`;
     const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
 
     window.open(url, "_blank");

@@ -24,27 +24,31 @@ const SignIn_out = () => {
   const dispatch = useDispatch();
 
   const handleSignUp = () => {
-    const message = validation(email.current.value, password.current.value, fullName.current.value);
-    setError(message);
-    if (message) return;
-
+    const message = validation(
+      email.current.value,
+      password.current.value,
+      fullName.current.value
+    );
+    if (message) {
+      setError(message);
+      return;
+    }
+  
     createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
       .then((userCredential) => {
         const user = userCredential.user;
-
+  
         updateProfile(user, {
           displayName: fullName.current.value
         })
           .then(() => {
-            // Now displayName is updated
-            const { uid, email, displayName } = auth.currentUser;
+            const { uid, email: userEmail, displayName } = auth.currentUser;
             dispatch(addUser({
               uid,
-              email,
+              email: userEmail,
               displayName
             }));
-
-            // Move navigation here
+  
             navigate("/body");
           })
           .catch((error) => {
@@ -53,30 +57,51 @@ const SignIn_out = () => {
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        setError(errorCode + ": " + errorMessage);
+        if (errorCode === "auth/email-already-in-use") {
+          setError("This email is already registered.");
+        } else if (errorCode === "auth/invalid-email") {
+          setError("Invalid email address.");
+        } else if (errorCode === "auth/weak-password") {
+          setError("Password is too weak.");
+        } else {
+          setError("Sign up failed: " + error.message);
+        }
       });
   };
-
+  
   const handleSignIn = () => {
-
+    if (!email.current.value) {
+      setError("Email field is required.");
+      return;
+    }
+    if (!password.current.value) {
+      setError("Password field is required.");
+      return;
+    }
+  
     signInWithEmailAndPassword(auth, email.current.value, password.current.value)
       .then((userCredential) => {
-        // Signed in 
         const user = userCredential.user;
-        //console.log(user);
-        // ...
-        //dispatch(addUser(user));
         navigate("/body");
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        setError(errorCode + ": " + errorMessage);
+      
+        if (
+          errorCode === "auth/user-not-found" ||
+          errorCode === "auth/wrong-password" ||
+          errorCode === "auth/invalid-credential"
+        ) {
+          setError("Incorrect credentials.");
+        } else if (errorCode === "auth/invalid-email") {
+          setError("Invalid email address.");
+        } else {
+          setError("Sign in failed: " + error.message);
+        }
       });
-
-
-  }
+      
+  };
+  
 
 
   const handleKeyDown = (e, currentField) => {
