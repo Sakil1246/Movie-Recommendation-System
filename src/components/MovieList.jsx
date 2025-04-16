@@ -9,8 +9,8 @@ const MovieList = ({ list, tittle }) => {
         {tittle}
       </h1>
 
-      <div className="flex flex-nowrap sm:flex-wrap sm:justify-start gap-4 overflow-x-auto scrollbar-hide pb-10">
-        {list?.map((movie) => (
+      <div className="flex flex-nowrap gap-4 overflow-x-auto scrollbar-hide pb-10">
+      {list?.map((movie) => (
           <motion.div
             key={movie.id}
             className="flex-shrink-0 sm:flex-shrink sm:w-[calc(33.333%-1rem)] md:w-64 flex flex-col items-center justify-start bg-[#0F0F24] w-48 p-3 rounded-2xl shadow-md"

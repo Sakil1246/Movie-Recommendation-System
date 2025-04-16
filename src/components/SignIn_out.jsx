@@ -181,7 +181,14 @@ const SignIn_out = () => {
             {!isSignIn ? "Already have an account? " : "New here? "}
             <span
               className="cursor-pointer text-white"
-              onClick={() => setIsSignIn(!isSignIn)}
+              onClick={() => {
+                setIsSignIn(!isSignIn);
+                setError("");
+                email.current.value = "";
+                password.current.value = "";
+                if (fullName.current) fullName.current.value = "";
+              }}
+              
             >
               {isSignIn ? "Sign Up" : "Sign In here"}
             </span>
